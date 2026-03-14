@@ -499,7 +499,7 @@
     
     <div class="form-group">
         <label>성함</label>
-        <input type="text" placeholder="이름을 입력해주세요">
+        <input type="text" id="rsvp-name" placeholder="이름을 입력해주세요">
     </div>
     <div class="form-group">
         <label>구분</label>
@@ -516,7 +516,7 @@
     </div>
     <div class="form-group">
         <label>동행 인원 (본인 포함)</label>
-        <select>
+        <select id="rsvp-guests">
             <option>1명</option>
             <option>2명</option>
             <option>3명 이상</option>
@@ -540,8 +540,8 @@
             </label>
         </div>
     </div>
-    
-    <button class="btn btn-solid" style="margin-top: 16px;" onclick="closeModal()">전달하기</button>
+
+    <button class="btn btn-solid" style="margin-top: 16px;" id="rsvp-submit-btn" onclick="submitRSVP()">전달하기</button>
 </div>
 
 <div class="toast" id="toastMsg">계좌번호가 복사되었습니다.</div>
@@ -632,13 +632,54 @@
     function openModal() {
         modalBg.classList.add('active');
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // 뒤 배경 스크롤 방지
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
         modalBg.classList.remove('active');
         modal.classList.remove('active');
         document.body.style.overflow = '';
+    }
+
+    // 3-1. RSVP 제출
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2_skRv-1xeHnZbwcHPWHheYpbMnTeQMAa2TNaeQFnJyEgkEUkCX5ldffaOsoiMEV-/exec';
+
+    function submitRSVP() {
+        const name = document.getElementById('rsvp-name').value.trim();
+        if (!name) {
+            alert('성함을 입력해주세요.');
+            return;
+        }
+
+        const side = document.querySelector('input[name="side"]:checked').value;
+        const guests = document.getElementById('rsvp-guests').value;
+        const meal = document.querySelector('input[name="meal"]:checked').value;
+
+        const btn = document.getElementById('rsvp-submit-btn');
+        btn.disabled = true;
+        btn.textContent = '전달 중...';
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, side, guests, meal })
+        })
+        .then(() => {
+            closeModal();
+            document.getElementById('rsvp-name').value = '';
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = '참석 의사가 전달되었습니다. 감사합니다!';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        })
+        .catch(() => {
+            alert('전송 중 오류가 발생했습니다. 다시 시도해주세요.');
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.textContent = '전달하기';
+        });
     }
 
     // 4. 아코디언 제어
