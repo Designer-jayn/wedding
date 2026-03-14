@@ -23,7 +23,7 @@
         --font-sans: 'Noto Sans KR', sans-serif; /* 본문용 고딕체 */
 
         /* Spacing & Layout */
-        --max-width: 820px;         /* 최대 너비 */
+        --max-width: 800px;         /* 최대 너비 */
         --padding-x: 24px;          /* 좌우 여백 */
         --section-py: 80px;         /* 섹션 상하 여백 */
     }
@@ -121,19 +121,29 @@
     .time-num { font-size: 20px; font-weight: 500; }
     .time-label { font-size: 11px; color: var(--text-sub); text-transform: uppercase; }
 
+    /* 갤러리 섹션 */
+    .gallery-section {
+        overflow: hidden;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .gallery-section > h2,
+    .gallery-section > p {
+        padding-left: var(--padding-x);
+        padding-right: var(--padding-x);
+    }
+
     /* 갤러리 (가로 스크롤) */
     .gallery-container {
         display: flex;
         overflow-x: auto;
         gap: 12px;
         padding: 0 20px 20px 20px;
-        scroll-snap-type: x mandatory;
-        scroll-padding-inline: 20px;
-        scroll-behavior: smooth;
         scrollbar-width: none;
         -ms-overflow-style: none;
         cursor: grab;
         user-select: none;
+        touch-action: pan-x;
     }
     .gallery-container::-webkit-scrollbar {
         display: none;
@@ -144,10 +154,9 @@
     .gallery-container::-webkit-scrollbar-thumb { display: none; }
     .gallery-container.dragging { cursor: grabbing; }
     .gallery-item {
-        flex: 0 0 75%;
+        flex: 0 0 58%;
         aspect-ratio: 3 / 4;
         background-color: #E2DFD8;
-        scroll-snap-align: center;
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -159,23 +168,20 @@
     .gallery-item:active { cursor: grabbing; }
 
     /* 연락하기 모달 */
-    .contact-modal-content { position: fixed; bottom: -100%; left: 50%; transform: translateX(-50%); width: 100%; max-width: var(--max-width); background: #fff; padding: 32px 24px 40px; border-radius: 20px 20px 0 0; transition: 0.4s ease-out; z-index: 101; max-height: 85vh; overflow-y: auto; }
-    .contact-modal-content.active { bottom: 0; }
-    @media (min-width: 820px) {
-        .contact-modal-content { bottom: auto; top: -100vh; width: 90%; max-width: 480px; border-radius: 12px; transform: translate(-50%, -50%); padding: 40px; }
-        .contact-modal-content.active { top: 50%; }
-    }
-    .contact-section-title { font-size: 11px; letter-spacing: 2px; color: var(--text-sub); font-weight: 500; padding-bottom: 10px; border-bottom: 1px solid var(--line-color); margin-bottom: 4px; }
-    .contact-section-title strong { font-size: 15px; font-family: var(--font-serif); font-weight: 500; color: var(--text-main); margin-right: 8px; letter-spacing: 0; }
-    .contact-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
+    .contact-modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); opacity: 0; visibility: hidden; width: calc(100% - 40px); max-width: 420px; background: #fff; padding: 28px 24px 32px; border-radius: 16px; transition: 0.3s ease-out; z-index: 101; max-height: 90vh; overflow-y: auto; }
+    .contact-modal-content.active { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
+    .contact-modal-title { font-size: 16px; font-weight: 500; font-family: var(--font-sans); text-align: center; margin-bottom: 24px; }
+    .contact-section-title { font-size: 12px; color: var(--text-sub); font-weight: 400; padding-bottom: 8px; border-bottom: 1px solid var(--line-color); margin-bottom: 0; margin-top: 16px; }
+    .contact-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
     .contact-item:last-child { border-bottom: none; }
-    .contact-item-info { text-align: left; }
-    .contact-item-role { font-size: 11px; color: var(--text-sub); margin-bottom: 4px; }
-    .contact-item-name { font-size: 16px; font-family: var(--font-serif); color: var(--text-main); }
+    .contact-item-info { display: flex; align-items: center; gap: 10px; }
+    .contact-item-role { font-size: 12px; color: var(--text-sub); min-width: 36px; }
+    .contact-item-name { font-size: 15px; font-family: var(--font-serif); color: var(--text-main); }
     .contact-btns { display: flex; gap: 8px; }
-    .contact-btn { width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; background-color: #f0ece6; transition: background 0.2s; }
-    .contact-btn:hover { background-color: var(--point-color); }
-    .contact-group { margin-bottom: 8px; }
+    .contact-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-color); cursor: pointer; display: flex; align-items: center; justify-content: center; background-color: #fafafa; transition: background 0.2s; text-decoration: none; }
+    .contact-btn:hover { background-color: var(--line-color); }
+    .contact-btn svg { width: 16px; height: 16px; stroke: var(--text-main); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-group { margin-bottom: 4px; }
 
     /* 오시는 길 */
     .map-placeholder { width: 100%; height: 250px; background-color: #EAEAEA; margin: 24px 0; display: flex; align-items: center; justify-content: center; color: var(--text-sub); }
@@ -201,31 +207,11 @@
     .copy-btn { padding: 8px 16px; background: var(--point-color); color: #fff; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 500; transition: background 0.2s; align-self: flex-end; }
     .copy-btn:hover { background: #9B936A; }
 
-    /* 참석 의사 모달 (Bottom Sheet 스타일) */
+    /* 모달 공통 */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 100; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-content { position: fixed; bottom: -100%; left: 50%; transform: translateX(-50%); width: 100%; max-width: var(--max-width); background: #fff; padding: 32px 24px; border-radius: 20px 20px 0 0; transition: 0.4s ease-out; z-index: 101; text-align: left; }
-    .modal-content.active { bottom: 0; }
-
-    /* 태블릿 이상: Center Modal */
-    @media (min-width: 820px) {
-        .modal-content {
-            bottom: auto;
-            top: -100vh;
-            width: 90%;
-            max-width: 480px;
-            border-radius: 12px;
-            transform: translate(-50%, -50%);
-            padding: 40px;
-        }
-        .modal-content.active {
-            top: 50%;
-        }
-        .modal-close {
-            top: 16px;
-            right: 16px;
-        }
-    }
+    .modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); opacity: 0; visibility: hidden; width: calc(100% - 40px); max-width: 420px; background: #fff; padding: 32px 24px; border-radius: 16px; transition: 0.3s ease-out; z-index: 101; text-align: left; max-height: 90vh; overflow-y: auto; }
+    .modal-content.active { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
     .modal-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 24px; cursor: pointer; }
     .form-group { margin-bottom: 24px; }
     .form-group label { display: block; margin-bottom: 10px; font-size: 13px; color: var(--text-main); font-weight: 500; }
@@ -303,69 +289,19 @@
         border-color: var(--point-color);
     }
 
+    /* 리마인드 */
+    .remind-label { font-size: 11px; letter-spacing: 2px; color: var(--point-color); margin-bottom: 10px; }
+    .remind-desc { font-size: 14px; color: var(--text-sub); line-height: 1.9; margin: 16px 0 28px; }
+    .remind-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border: 1px solid var(--point-color); border-radius: 40px; background: transparent; color: var(--point-color); font-size: 14px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; }
+    .remind-btn:hover { background: var(--point-color); color: #fff; }
+    .remind-modal-desc { font-size: 13px; color: var(--text-sub); line-height: 1.9; text-align: center; margin-bottom: 24px; }
+    .remind-privacy { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sub); margin: 16px 0; cursor: pointer; }
+    .remind-privacy input { accent-color: var(--point-color); width: 15px; height: 15px; cursor: pointer; }
+
     /* 토스트 팝업 */
     .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200; }
     .toast.show { opacity: 1; }
 
-    /* ==========================================================================
-       [4. 태블릿 세로모드 (600px 이상)]
-       ========================================================================== */
-    @media (min-width: 600px) {
-        :root {
-            --padding-x: 32px;
-            --section-py: 90px;
-        }
-
-        .main-title h1 {
-            font-size: 28px;
-        }
-
-        .main-title p {
-            font-size: 15px;
-        }
-
-        .intro-text {
-            font-size: 17px;
-        }
-    }
-
-    /* ==========================================================================
-       [5. 태블릿 가로 정도 (820px 이상)]
-       ========================================================================== */
-    @media (min-width: 820px) {
-        :root {
-            --padding-x: 48px;
-            --section-py: 110px;
-        }
-
-        .main-title h1 {
-            font-size: 36px;
-        }
-
-        .main-title p {
-            font-size: 18px;
-        }
-
-        .intro-text {
-            font-size: 19px;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-
-        .gallery-container {
-            gap: 20px;
-        }
-
-        .gallery-item {
-            flex: 0 0 calc(50% - 10px);
-            aspect-ratio: 3 / 4;
-        }
-
-        .transport-info {
-            max-width: 700px;
-            margin: 24px auto 0;
-        }
-    }
 </style>
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xa06xq8syg"></script>
 </head>
@@ -418,7 +354,7 @@
         </div>
     </section>
 
-    <section class="fade-up">
+    <section class="gallery-section fade-up">
         <h2 style="margin-bottom: 24px; font-size: 18px;">Gallery</h2>
         <div class="gallery-container" id="galleryContainer">
             <div class="gallery-item">사진 1</div>
@@ -437,7 +373,6 @@
             <div class="gallery-item">사진 14</div>
             <div class="gallery-item">사진 15</div>
         </div>
-        <p style="font-size: 12px; color: var(--text-sub); margin-top: 12px;">옆으로 넘겨보세요 ➔</p>
     </section>
 
     <section class="fade-up">
@@ -498,6 +433,20 @@
         <button class="btn btn-solid" onclick="openModal()">참석 의사 전달하기</button>
     </section>
 
+    <section class="fade-up" style="text-align: center;">
+        <p class="remind-label">REMIND</p>
+        <h2 style="font-size: 22px; margin-bottom: 0;">리마인드 알림</h2>
+        <p class="remind-desc">
+            소중한 날을 잊지 않도록,<br>
+            결혼식 일주일 전, 하루 전<br>
+            리마인드 메세지를 보내드려요.
+        </p>
+        <button class="remind-btn" onclick="openRemindModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            리마인드 메세지 받기
+        </button>
+    </section>
+
     <section class="fade-up">
         <h2 style="margin-bottom: 24px; font-size: 18px;">마음 전하실 곳</h2>
         
@@ -508,10 +457,10 @@
             <div class="accordion-content">
                 <div class="account-details">
                     <div>
-                        <p style="font-size: 12px; color: var(--text-sub);">OO은행</p>
-                        <p><strong>123-4567-890123</strong> (예금주: 이 성진)</p>
+                        <p style="font-size: 12px; color: var(--text-sub);">신한은행</p>
+                        <p><strong>110-499-348765</strong> (예금주: 이성진)</p>
                     </div>
-                    <button class="copy-btn" onclick="copyToClipboard('1234567890123')">복사</button>
+                    <button class="copy-btn" onclick="copyToClipboard('110499348765')">복사</button>
                 </div>
             </div>
         </div>
@@ -537,72 +486,72 @@
 <div class="modal-overlay" id="contactModalBg" onclick="closeContactModal()"></div>
 <div class="contact-modal-content" id="contactModal">
     <button class="modal-close" onclick="closeContactModal()">×</button>
-    <h3 style="margin-bottom: 24px; font-family: var(--font-sans); font-weight: 500; text-align: left;">연락하기</h3>
+    <div class="contact-modal-title">연락하기</div>
 
     <div class="contact-group">
-        <div class="contact-section-title"><strong>신랑 측</strong> GROOM</div>
+        <div class="contact-section-title">신랑측</div>
         <div class="contact-item">
             <div class="contact-item-info">
-                <div class="contact-item-role">신랑</div>
-                <div class="contact-item-name">이성진</div>
+                <span class="contact-item-role">신랑</span>
+                <span class="contact-item-name">이성진</span>
             </div>
             <div class="contact-btns">
-                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
-                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+                <a href="tel:010-7125-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                <a href="sms:010-7125-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
             </div>
         </div>
         <div class="contact-item">
             <div class="contact-item-info">
-                <div class="contact-item-role">신랑 아버님</div>
-                <div class="contact-item-name">이재광</div>
+                <span class="contact-item-role">아버지</span>
+                <span class="contact-item-name">이재광</span>
             </div>
             <div class="contact-btns">
-                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
-                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+                <a href="tel:010-2346-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                <a href="sms:010-2346-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
             </div>
         </div>
         <div class="contact-item">
             <div class="contact-item-info">
-                <div class="contact-item-role">신랑 어머님</div>
-                <div class="contact-item-name">신영섭</div>
+                <span class="contact-item-role">어머니</span>
+                <span class="contact-item-name">신영섭</span>
             </div>
             <div class="contact-btns">
-                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
-                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+                <a href="tel:010-3353-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                <a href="sms:010-3353-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
             </div>
         </div>
     </div>
 
-    <div class="contact-group" style="margin-top: 16px;">
-        <div class="contact-section-title"><strong>신부 측</strong> BRIDE</div>
+    <div class="contact-group">
+        <div class="contact-section-title">신부측</div>
         <div class="contact-item">
             <div class="contact-item-info">
-                <div class="contact-item-role">신부</div>
-                <div class="contact-item-name">이현주</div>
+                <span class="contact-item-role">신부</span>
+                <span class="contact-item-name">이현주</span>
             </div>
             <div class="contact-btns">
-                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
-                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+                <a href="tel:010-3353-8070" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                <a href="sms:010-3353-8070" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
             </div>
         </div>
         <div class="contact-item">
             <div class="contact-item-info">
-                <div class="contact-item-role">신부 아버님</div>
-                <div class="contact-item-name">이재복</div>
+                <span class="contact-item-role">아버지</span>
+                <span class="contact-item-name">이재복</span>
             </div>
             <div class="contact-btns">
-                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
-                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+                <a href="tel:010-8994-4779" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                <a href="sms:010-8994-4779" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
             </div>
         </div>
         <div class="contact-item">
             <div class="contact-item-info">
-                <div class="contact-item-role">신부 어머님</div>
-                <div class="contact-item-name">김선희</div>
+                <span class="contact-item-role">어머니</span>
+                <span class="contact-item-name">김선희</span>
             </div>
             <div class="contact-btns">
-                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
-                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+                <a href="tel:010-2439-1664" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                <a href="sms:010-2439-1664" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
             </div>
         </div>
     </div>
@@ -658,6 +607,31 @@
     </div>
 
     <button class="btn btn-solid" style="margin-top: 16px;" id="rsvp-submit-btn" onclick="submitRSVP()">전달하기</button>
+</div>
+
+<div class="modal-overlay" id="remindModalBg" onclick="closeRemindModal()"></div>
+<div class="modal-content" id="remindModal">
+    <button class="modal-close" onclick="closeRemindModal()">×</button>
+    <h3 style="margin-bottom: 12px; font-family: var(--font-sans); font-weight: 500; text-align: center;">알림 설정</h3>
+    <p class="remind-modal-desc">
+        결혼식 일주일 전, 하루 전에<br>
+        리마인드 문자를 보내드릴게요.
+    </p>
+    <div class="form-group">
+        <label>성함</label>
+        <input type="text" id="remind-name" placeholder="이름을 입력해주세요">
+    </div>
+    <div class="form-group">
+        <label>전화번호</label>
+        <input type="tel" id="remind-phone" placeholder="010-0000-0000">
+    </div>
+    <label class="remind-privacy">
+        <input type="checkbox" id="remind-agree">
+        개인정보 수집·이용에 동의합니다 (리마인드 발송 목적으로만 사용)
+    </label>
+    <button class="btn btn-solid" id="remind-submit-btn" onclick="submitRemind()">
+        리마인드 메세지 받기
+    </button>
 </div>
 
 <div class="toast" id="toastMsg">계좌번호가 복사되었습니다.</div>
@@ -726,30 +700,60 @@
         galleryContainer.scrollLeft = scrollLeft - walk;
     });
 
-    // 터치 스와이프
-    let touchStartX = 0;
-    let touchScrollLeft = 0;
-
-    galleryContainer.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchScrollLeft = galleryContainer.scrollLeft;
-    });
-
-    galleryContainer.addEventListener('touchmove', (e) => {
-        const touchX = e.touches[0].clientX;
-        const walk = (touchStartX - touchX) * 1;
-        galleryContainer.scrollLeft = touchScrollLeft + walk;
-    });
-
     // PC 마우스 휠 가로 스크롤
     galleryContainer.addEventListener('wheel', (e) => {
         e.preventDefault();
         const itemWidth = galleryContainer.querySelector('.gallery-item').offsetWidth + 12;
         const direction = e.deltaY > 0 ? 1 : -1;
-        galleryContainer.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
+        galleryContainer.scrollBy({ left: itemWidth * direction });
     }, { passive: false });
 
-    // 3. 연락하기 모달
+    // 3. 리마인드 모달
+    function openRemindModal() {
+        document.getElementById('remindModalBg').classList.add('active');
+        document.getElementById('remindModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeRemindModal() {
+        document.getElementById('remindModalBg').classList.remove('active');
+        document.getElementById('remindModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function submitRemind() {
+        const name = document.getElementById('remind-name').value.trim();
+        const phone = document.getElementById('remind-phone').value.trim();
+        const agree = document.getElementById('remind-agree').checked;
+        if (!name) { alert('성함을 입력해주세요.'); return; }
+        if (!phone) { alert('전화번호를 입력해주세요.'); return; }
+        if (!agree) { alert('개인정보 수집·이용에 동의해주세요.'); return; }
+
+        const btn = document.getElementById('remind-submit-btn');
+        btn.disabled = true;
+        btn.textContent = '신청 중...';
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ type: 'remind', name, phone })
+        }).then(() => {
+            closeRemindModal();
+            document.getElementById('remind-name').value = '';
+            document.getElementById('remind-phone').value = '';
+            document.getElementById('remind-agree').checked = false;
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = '리마인드 신청이 완료되었습니다!';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }).catch(() => {
+            alert('전송 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }).finally(() => {
+            btn.disabled = false;
+            btn.textContent = '리마인드 메세지 받기';
+        });
+    }
+
+    // 3-1. 연락하기 모달
     function openContactModal() {
         document.getElementById('contactModalBg').classList.add('active');
         document.getElementById('contactModal').classList.add('active');
