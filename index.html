@@ -60,6 +60,24 @@
         width: 0;
         height: 0;
     }
+    /* PC에서는 스크롤바 표시 */
+    @media (hover: hover) and (pointer: fine) {
+        .mobile-container {
+            scrollbar-width: thin;
+            -ms-overflow-style: auto;
+        }
+        .mobile-container::-webkit-scrollbar {
+            display: block;
+            width: 6px;
+        }
+        .mobile-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .mobile-container::-webkit-scrollbar-thumb {
+            background-color: var(--line-color);
+            border-radius: 3px;
+        }
+    }
     section {
         padding: var(--section-py) var(--padding-x);
         text-align: center;
@@ -91,7 +109,9 @@
     /* 초대글 & 혼주 정보 */
     .intro-text { font-family: var(--font-serif); font-size: 16px; line-height: 2.2; margin-bottom: 40px; }
     .parents-info { font-size: 15px; margin-bottom: 12px; }
-    .parents-info span { font-size: 13px; color: var(--text-sub); margin-right: 8px; }
+    .parents-info .parent-names { font-size: 15px; color: var(--text-main); margin-right: 4px; }
+    .parents-info .relation { font-size: 13px; color: var(--text-sub); margin-right: 4px; }
+    .parents-info strong { font-weight: 500; }
 
     /* 카운트다운 */
     .countdown-wrap { background: #fff; padding: 30px 20px; border-radius: 12px; margin: 40px 0; border: 1px solid var(--line-color); }
@@ -108,6 +128,8 @@
         gap: 12px;
         padding: 0 20px 20px 20px;
         scroll-snap-type: x mandatory;
+        scroll-padding-inline: 20px;
+        scroll-behavior: smooth;
         scrollbar-width: none;
         -ms-overflow-style: none;
         cursor: grab;
@@ -135,6 +157,25 @@
         transition: transform 0.2s ease-out;
     }
     .gallery-item:active { cursor: grabbing; }
+
+    /* 연락하기 모달 */
+    .contact-modal-content { position: fixed; bottom: -100%; left: 50%; transform: translateX(-50%); width: 100%; max-width: var(--max-width); background: #fff; padding: 32px 24px 40px; border-radius: 20px 20px 0 0; transition: 0.4s ease-out; z-index: 101; max-height: 85vh; overflow-y: auto; }
+    .contact-modal-content.active { bottom: 0; }
+    @media (min-width: 820px) {
+        .contact-modal-content { bottom: auto; top: -100vh; width: 90%; max-width: 480px; border-radius: 12px; transform: translate(-50%, -50%); padding: 40px; }
+        .contact-modal-content.active { top: 50%; }
+    }
+    .contact-section-title { font-size: 11px; letter-spacing: 2px; color: var(--text-sub); font-weight: 500; padding-bottom: 10px; border-bottom: 1px solid var(--line-color); margin-bottom: 4px; }
+    .contact-section-title strong { font-size: 15px; font-family: var(--font-serif); font-weight: 500; color: var(--text-main); margin-right: 8px; letter-spacing: 0; }
+    .contact-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-item-info { text-align: left; }
+    .contact-item-role { font-size: 11px; color: var(--text-sub); margin-bottom: 4px; }
+    .contact-item-name { font-size: 16px; font-family: var(--font-serif); color: var(--text-main); }
+    .contact-btns { display: flex; gap: 8px; }
+    .contact-btn { width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; background-color: #f0ece6; transition: background 0.2s; }
+    .contact-btn:hover { background-color: var(--point-color); }
+    .contact-group { margin-bottom: 8px; }
 
     /* 오시는 길 */
     .map-placeholder { width: 100%; height: 250px; background-color: #EAEAEA; margin: 24px 0; display: flex; align-items: center; justify-content: center; color: var(--text-sub); }
@@ -326,7 +367,7 @@
         }
     }
 </style>
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=drr0dmcmu4"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xa06xq8syg"></script>
 </head>
 <body>
 <div class="mobile-container">
@@ -336,8 +377,8 @@
             [웨딩 사진 영역 750x1200]
         </div>
         <div class="main-title fade-up">
-            <h1>Groom & Bride</h1>
-            <p>202X. XX. XX SAT 12:30 PM</p>
+            <h1>이성진 & 이현주</h1>
+            <p>2026. 07. 11 SAT 12:30 PM</p>
             <p>라시따시어터</p>
         </div>
     </section>
@@ -355,12 +396,13 @@
         
         <div style="margin-top: 48px;">
             <div class="parents-info">
-                <span>아버지이름 · 어머니이름</span> 의 아들 <strong>신랑이름</strong>
+                <span class="parent-names">이재광 · 신영섭</span><span class="relation">의 아들</span> <strong>이성진</strong>
             </div>
             <div class="parents-info">
-                <span>아버지이름 · 어머니이름</span> 의 딸 <strong>신부이름</strong>
+                <span class="parent-names">이재복 · 김선희</span><span class="relation">의 딸</span> <strong>이현주</strong>
             </div>
         </div>
+        <button class="btn btn-outline" style="margin-top: 32px; max-width: 200px; margin-left: auto; margin-right: auto; font-size: 14px;" onclick="openContactModal()">☎ 연락하기</button>
     </section>
 
     <section class="fade-up">
@@ -401,7 +443,7 @@
     <section class="fade-up">
         <h2 style="margin-bottom: 8px; font-size: 18px;">오시는 길</h2>
         <p style="font-size: 15px;"><strong>라시따시어터</strong></p>
-        <p style="font-size: 13px; color: var(--text-sub);">서울 서초구 매헌로 99</p>
+        <p style="font-size: 13px; color: var(--text-sub);">서울 서초구 매헌로 16</p>
 
         <div id="map" style="width: 100%; height: 250px; border-radius: 8px;"></div>
 
@@ -467,7 +509,7 @@
                 <div class="account-details">
                     <div>
                         <p style="font-size: 12px; color: var(--text-sub);">OO은행</p>
-                        <p><strong>123-4567-890123</strong> (예금주: 신랑이름)</p>
+                        <p><strong>123-4567-890123</strong> (예금주: 이 성진)</p>
                     </div>
                     <button class="copy-btn" onclick="copyToClipboard('1234567890123')">복사</button>
                 </div>
@@ -481,15 +523,89 @@
             <div class="accordion-content">
                 <div class="account-details">
                     <div>
-                        <p style="font-size: 12px; color: var(--text-sub);">OO은행</p>
-                        <p><strong>098-7654-321098</strong> (예금주: 신부이름)</p>
+                        <p style="font-size: 12px; color: var(--text-sub);">국민은행</p>
+                        <p><strong>613802-01-368046</strong> (예금주: 이현주)</p>
                     </div>
-                    <button class="copy-btn" onclick="copyToClipboard('0987654321098')">복사</button>
+                    <button class="copy-btn" onclick="copyToClipboard('613802-01-368046')">복사</button>
                 </div>
             </div>
         </div>
     </section>
 
+</div>
+
+<div class="modal-overlay" id="contactModalBg" onclick="closeContactModal()"></div>
+<div class="contact-modal-content" id="contactModal">
+    <button class="modal-close" onclick="closeContactModal()">×</button>
+    <h3 style="margin-bottom: 24px; font-family: var(--font-sans); font-weight: 500; text-align: left;">연락하기</h3>
+
+    <div class="contact-group">
+        <div class="contact-section-title"><strong>신랑 측</strong> GROOM</div>
+        <div class="contact-item">
+            <div class="contact-item-info">
+                <div class="contact-item-role">신랑</div>
+                <div class="contact-item-name">이성진</div>
+            </div>
+            <div class="contact-btns">
+                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
+                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-item-info">
+                <div class="contact-item-role">신랑 아버님</div>
+                <div class="contact-item-name">이재광</div>
+            </div>
+            <div class="contact-btns">
+                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
+                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-item-info">
+                <div class="contact-item-role">신랑 어머님</div>
+                <div class="contact-item-name">신영섭</div>
+            </div>
+            <div class="contact-btns">
+                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
+                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-group" style="margin-top: 16px;">
+        <div class="contact-section-title"><strong>신부 측</strong> BRIDE</div>
+        <div class="contact-item">
+            <div class="contact-item-info">
+                <div class="contact-item-role">신부</div>
+                <div class="contact-item-name">이현주</div>
+            </div>
+            <div class="contact-btns">
+                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
+                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-item-info">
+                <div class="contact-item-role">신부 아버님</div>
+                <div class="contact-item-name">이재복</div>
+            </div>
+            <div class="contact-btns">
+                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
+                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-item-info">
+                <div class="contact-item-role">신부 어머님</div>
+                <div class="contact-item-name">김선희</div>
+            </div>
+            <div class="contact-btns">
+                <a href="tel:010-0000-0000" class="contact-btn">📞</a>
+                <a href="sms:010-0000-0000" class="contact-btn">✉️</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal-overlay" id="rsvpModalBg" onclick="closeModal()"></div>
@@ -625,7 +741,27 @@
         galleryContainer.scrollLeft = touchScrollLeft + walk;
     });
 
-    // 3. 모달 제어
+    // PC 마우스 휠 가로 스크롤
+    galleryContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const itemWidth = galleryContainer.querySelector('.gallery-item').offsetWidth + 12;
+        const direction = e.deltaY > 0 ? 1 : -1;
+        galleryContainer.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
+    }, { passive: false });
+
+    // 3. 연락하기 모달
+    function openContactModal() {
+        document.getElementById('contactModalBg').classList.add('active');
+        document.getElementById('contactModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+        document.getElementById('contactModalBg').classList.remove('active');
+        document.getElementById('contactModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // 3-1. 참석 의사 모달 제어
     const modalBg = document.getElementById('rsvpModalBg');
     const modal = document.getElementById('rsvpModal');
 
