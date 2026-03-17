@@ -6,8 +6,15 @@
 <title>Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
+    @font-face { font-family: 'Canela'; src: url('fonts/Canela-Regular-Trial.otf') format('opentype'); font-weight: 400; }
+    @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Light.otf') format('opentype'); font-weight: 300; }
+    @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Book.otf') format('opentype'); font-weight: 400; }
+    @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Medium.otf') format('opentype'); font-weight: 500; }
+    @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Bold.otf') format('opentype'); font-weight: 700; }
+
     /* ==========================================================================
        [1. CSS 변수 및 색상 정의]
        ========================================================================== */
@@ -20,10 +27,10 @@
 
         /* Typography */
         --font-serif: 'Noto Serif KR', serif; /* 제목용 명조체 */
-        --font-sans: 'Noto Sans KR', sans-serif; /* 본문용 고딕체 */
+        --font-sans: 'Pretendard', -apple-system, sans-serif; /* 본문용 고딕체 */
 
         /* Spacing & Layout */
-        --max-width: 800px;         /* 최대 너비 */
+        --max-width: 480px;         /* 최대 너비 */
         --padding-x: 24px;          /* 좌우 여백 */
         --section-py: 80px;         /* 섹션 상하 여백 */
     }
@@ -32,9 +39,12 @@
        [2. 기본 리셋 및 레이아웃]
        ========================================================================== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
+    html {
         height: 100%;
-        overflow: hidden;
+        scrollbar-width: none;
+    }
+    html::-webkit-scrollbar {
+        display: none;
     }
     body {
         background-color: #eeeeee; /* PC에서 볼 때 바깥 배경 */
@@ -47,36 +57,10 @@
         max-width: var(--max-width);
         margin: 0 auto;
         background-color: var(--bg-color);
-        min-height: 100%;
-        height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+        min-height: 100vh;
         box-shadow: 0 0 20px rgba(0,0,0,0.05);
     }
-    .mobile-container::-webkit-scrollbar {
-        display: none;
-        width: 0;
-        height: 0;
-    }
-    /* PC에서는 스크롤바 표시 */
     @media (hover: hover) and (pointer: fine) {
-        .mobile-container {
-            scrollbar-width: thin;
-            -ms-overflow-style: auto;
-        }
-        .mobile-container::-webkit-scrollbar {
-            display: block;
-            width: 6px;
-        }
-        .mobile-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .mobile-container::-webkit-scrollbar-thumb {
-            background-color: var(--line-color);
-            border-radius: 3px;
-        }
     }
     section {
         padding: var(--section-py) var(--padding-x);
@@ -85,7 +69,8 @@
     }
     section:last-child { border-bottom: none; }
     h1 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; letter-spacing: 1px; }
-    h2 { font-family: var(--font-serif); font-weight: 500; font-size: 18px; letter-spacing: 0.5px; color: var(--text-main); margin-bottom: 24px; }
+    .section-label { font-family: var(--font-sans); font-weight: 400; font-size: 11px; letter-spacing: 3px; color: var(--point-color); text-transform: uppercase; margin-bottom: 8px; }
+    h2 { font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: 1px; color: var(--text-main); margin-bottom: 24px; }
     h3 { font-family: var(--font-serif); font-weight: 400; font-size: 16px; }
 
     /* ==========================================================================
@@ -100,112 +85,220 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* 메인 커버 */
-    .main-cover { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0; position: relative; }
-    .main-img-placeholder { width: 100%; height: 75vh; background-color: #E2DFD8; display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-serif); }
-    .main-title { padding: 40px 24px; }
-    .main-title h1 { font-size: 28px; letter-spacing: 3px; margin-bottom: 12px; font-weight: 300; }
-    .main-title p { font-size: 13px; color: var(--text-sub); letter-spacing: 1.5px; font-weight: 300; }
+    .main-cover { width: 100%; padding: 0; position: relative; overflow: hidden; border-bottom: none; container-type: inline-size; }
+    .main-cover-img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .cover-img05 { position: absolute; bottom: -2px; left: 0; right: 0; width: 100%; height: auto; }
+    .cover-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 10% 16px 0; pointer-events: none; }
+    .cover-overlay-top { display: flex; flex-direction: column; align-items: center; gap: clamp(6px, 2cqw, 14px); width: 100%; }
+    .cover-overlay-bottom { text-align: center; }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .cover-img02 { width: clamp(28px, 7cqw, 40px); margin-bottom: clamp(8px, 2cqw, 16px); opacity: 0; animation: slideUp 0.8s ease forwards; animation-delay: 0.3s; }
+    .cover-main-title { font-family: 'Canela', serif; font-size: clamp(28px, 9cqw, 48px); color: #fff; letter-spacing: 1px; font-weight: 400; line-height: 1.1; text-align: center; opacity: 0; animation: slideUp 0.8s ease forwards; animation-delay: 0.7s; }
+    .cover-date { font-family: 'Gotham', sans-serif; font-size: clamp(12px, 3.5cqw, 15px); color: rgba(255,255,255,0.88); letter-spacing: 3px; font-weight: 400; text-align: center; white-space: nowrap; opacity: 0; animation: slideUp 0.8s ease forwards; animation-delay: 0.9s; }
+    .cover-names { font-family: 'Gotham', sans-serif; font-size: clamp(12px, 3.2cqw, 14px); color: rgba(255,255,255,0.88); letter-spacing: 4px; font-weight: 300; text-align: center; white-space: nowrap; opacity: 0; animation: slideUp 0.8s ease forwards; animation-delay: 1.1s; }
 
     /* 초대글 & 혼주 정보 */
     .intro-text { font-family: var(--font-serif); font-size: 16px; line-height: 2.2; margin-bottom: 40px; }
     .parents-info { font-size: 15px; margin-bottom: 12px; }
     .parents-info .parent-names { font-size: 15px; color: var(--text-main); margin-right: 4px; }
-    .parents-info .relation { font-size: 13px; color: var(--text-sub); margin-right: 4px; }
+    .parents-info .relation { font-size: 14px; color: var(--text-sub); margin-right: 4px; }
     .parents-info strong { font-weight: 500; }
 
     /* 카운트다운 */
-    .countdown-wrap { background: #fff; padding: 30px 20px; border-radius: 12px; margin: 40px 0; border: 1px solid var(--line-color); }
-    .d-day { font-family: var(--font-serif); font-size: 24px; color: var(--point-color); margin-bottom: 16px; }
+    .countdown-wrap { padding: 36px 0 0; margin: 32px 0 0; border-top: 1px solid var(--line-color); }
+    .d-day { display: none; }
     .time-boxes { display: flex; justify-content: center; gap: 16px; }
     .time-box { display: flex; flex-direction: column; }
-    .time-num { font-size: 20px; font-weight: 500; }
-    .time-label { font-size: 11px; color: var(--text-sub); text-transform: uppercase; }
+    .time-num { font-size: 20px; font-weight: 500; color: var(--text-main); }
+    .time-label { font-size: 10px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; }
+    .countdown-text { font-size: 14px; color: var(--text-sub); }
+
+    /* 달력 섹션 */
+    .calendar-section { padding: var(--section-py) var(--padding-x); max-width: 460px; margin: 0 auto; }
+    .calendar-section h2 { font-size: 15px; letter-spacing: 2px; color: var(--point-color); }
+    .section-label { font-size: 15px; letter-spacing: 2px; color: var(--point-color); font-weight: 400; }
+    .calendar-info { font-size: 16px; line-height: 1.8; margin-bottom: 24px; color: var(--text-main); }
+    .calendar-info-date { font-weight: 500; margin-bottom: 8px; }
+    .calendar-info-location { color: var(--text-sub); }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; }
+    .calendar-day-header { padding: 10px 0; text-align: center; font-size: 13px; font-weight: 500; color: var(--text-sub); border-bottom: 1px solid var(--line-color); }
+    .calendar-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 14px; color: var(--text-main); }
+    .calendar-day.other-month { color: #ccc; }
+    .calendar-day.highlight { background: var(--point-color); color: #fff; font-weight: 500; border-radius: 50%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
 
     /* 갤러리 섹션 */
     .gallery-section {
         overflow: hidden;
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .gallery-section > h2,
-    .gallery-section > p {
-        padding-left: var(--padding-x);
-        padding-right: var(--padding-x);
     }
 
-    /* 갤러리 (가로 스크롤) */
+    /* 갤러리 (3열 정사각형 그리드) */
     .gallery-container {
-        display: flex;
-        overflow-x: auto;
-        gap: 12px;
-        padding: 0 20px 20px 20px;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        cursor: grab;
-        user-select: none;
-        touch-action: pan-x;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 3px;
+        padding: 0;
     }
-    .gallery-container::-webkit-scrollbar {
-        display: none;
-        width: 0;
-        height: 0;
-    }
-    .gallery-container::-webkit-scrollbar-track { display: none; }
-    .gallery-container::-webkit-scrollbar-thumb { display: none; }
-    .gallery-container.dragging { cursor: grabbing; }
     .gallery-item {
-        flex: 0 0 58%;
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 1;
         background-color: #E2DFD8;
-        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:active img { transform: scale(1.03); }
+
+    /* 갤러리 뷰어 */
+    .gallery-viewer {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 300;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s;
+    }
+    .gallery-viewer.active { opacity: 1; visibility: visible; }
+    .gallery-viewer-body {
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
-        user-select: none;
-        transition: transform 0.2s ease-out;
+        position: relative;
+        overflow: hidden;
+        touch-action: pan-y;
     }
-    .gallery-item:active { cursor: grabbing; }
+    .gallery-viewer-body img {
+        max-width: 92%;
+        max-height: 72vh;
+        object-fit: contain;
+        user-select: none;
+        -webkit-user-drag: none;
+        border-radius: 4px;
+    }
+    .gallery-viewer-prev,
+    .gallery-viewer-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 36px;
+        color: rgba(255,255,255,0.4);
+        cursor: pointer;
+        padding: 16px;
+        z-index: 2;
+    }
+    .gallery-viewer-prev { left: 0; }
+    .gallery-viewer-next { right: 0; }
+    .gallery-viewer-prev:hover,
+    .gallery-viewer-next:hover { color: rgba(255,255,255,0.8); }
+    .gallery-viewer-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 0 36px;
+    }
+    .gallery-viewer-counter {
+        font-size: 13px;
+        color: rgba(255,255,255,0.5);
+    }
+    .gallery-viewer-counter .current { color: #fff; font-weight: 500; }
+    .gallery-viewer-close {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.3);
+        background: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .gallery-viewer-close svg {
+        width: 20px;
+        height: 20px;
+        stroke: #fff;
+        stroke-width: 2;
+        fill: none;
+    }
 
     /* 연락하기 모달 */
     .contact-modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); opacity: 0; visibility: hidden; width: calc(100% - 40px); max-width: 420px; background: #fff; padding: 28px 24px 32px; border-radius: 16px; transition: 0.3s ease-out; z-index: 101; max-height: 90vh; overflow-y: auto; }
     .contact-modal-content.active { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
-    .contact-modal-title { font-size: 16px; font-weight: 500; font-family: var(--font-sans); text-align: center; margin-bottom: 24px; }
-    .contact-section-title { font-size: 12px; color: var(--text-sub); font-weight: 400; padding-bottom: 8px; border-bottom: 1px solid var(--line-color); margin-bottom: 0; margin-top: 16px; }
-    .contact-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+    .contact-modal-title { font-size: 15px; font-weight: 500; font-family: var(--font-sans); text-align: center; margin-bottom: 24px; }
+    .contact-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1px; background: var(--line-color); border: 1px solid var(--line-color); border-radius: 12px; overflow: hidden; margin-top: 8px; }
+    .contact-section-title { font-size: 12px; color: var(--text-sub); font-weight: 400; padding: 10px 12px; background: #fafafa; text-align: center; border-bottom: 1px solid var(--line-color); }
+    .contact-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid #f5f5f5; background: #fff; }
     .contact-item:last-child { border-bottom: none; }
-    .contact-item-info { display: flex; align-items: center; gap: 10px; }
-    .contact-item-role { font-size: 12px; color: var(--text-sub); min-width: 36px; }
-    .contact-item-name { font-size: 15px; font-family: var(--font-serif); color: var(--text-main); }
-    .contact-btns { display: flex; gap: 8px; }
-    .contact-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-color); cursor: pointer; display: flex; align-items: center; justify-content: center; background-color: #fafafa; transition: background 0.2s; text-decoration: none; }
+    .contact-item-info { display: flex; flex-direction: column; gap: 2px; }
+    .contact-item-role { font-size: 11px; color: var(--text-sub); }
+    .contact-item-name { font-size: 14px; font-family: var(--font-serif); color: var(--text-main); }
+    .contact-btns { display: flex; gap: 6px; }
+    .contact-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-color); cursor: pointer; display: flex; align-items: center; justify-content: center; background-color: #fafafa; transition: background 0.2s; text-decoration: none; }
     .contact-btn:hover { background-color: var(--line-color); }
-    .contact-btn svg { width: 16px; height: 16px; stroke: var(--text-main); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .contact-group { margin-bottom: 4px; }
+    .contact-btn svg { width: 14px; height: 14px; stroke: var(--text-main); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .contact-group { background: var(--line-color); }
 
     /* 오시는 길 */
     .map-placeholder { width: 100%; height: 250px; background-color: #EAEAEA; margin: 24px 0; display: flex; align-items: center; justify-content: center; color: var(--text-sub); }
     .transport-info { text-align: left; font-size: 14px; margin-top: 24px; }
     .transport-item { margin-bottom: 16px; display: flex; align-items: flex-start; }
-    .transport-icon { width: 24px; margin-right: 8px; font-size: 16px; }
+    .transport-icon { width: 24px; margin-right: 8px; font-size: 14px; }
     .transport-desc strong { font-weight: 500; color: var(--text-main); }
     .parking-highlight { background-color: #F4F1EC; padding: 12px; border-radius: 8px; margin-top: 8px; font-weight: 500; color: #8A7A60; }
 
     /* 버튼 */
-    .btn { display: block; width: 100%; padding: 16px; font-size: 15px; text-align: center; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-family: var(--font-sans); }
+    .btn { display: block; width: 100%; padding: 16px; font-size: 14px; text-align: center; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-family: var(--font-sans); }
     .btn-solid { background-color: var(--text-main); color: #fff; }
     .btn-solid:hover { background-color: #000; }
     .btn-outline { background-color: transparent; border: 1px solid var(--line-color); color: var(--text-main); margin-bottom: 8px; }
 
-    /* 마음 전하실 곳 (아코디언) */
-    .account-group { margin-bottom: 16px; text-align: left; }
-    .accordion-btn { width: 100%; padding: 16px; background: #fff; border: 1px solid var(--line-color); border-radius: 8px; text-align: left; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fafafa; border-radius: 0 0 8px 8px; }
-    .accordion-content.open { max-height: 250px; border: 1px solid var(--line-color); border-top: none; }
-    .account-details { padding: 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; font-size: 14px; }
-    .account-details > div { width: 100%; }
-    .copy-btn { padding: 8px 16px; background: var(--point-color); color: #fff; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 500; transition: background 0.2s; align-self: flex-end; }
-    .copy-btn:hover { background: #9B936A; }
+    /* 마음 전하실 곳 */
+    .account-icon { margin-bottom: 16px; }
+    .account-icon svg { width: 32px; height: 32px; stroke: var(--point-color); fill: none; stroke-width: 1.2; }
+    .account-group { margin-bottom: 12px; text-align: left; }
+    .accordion-btn { width: 100%; padding: 18px 20px; background: #F7F6F4; border: none; border-radius: 8px; text-align: center; font-size: 15px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; font-family: var(--font-sans); color: var(--text-main); font-weight: 400; letter-spacing: 0.3px; }
+    .accordion-btn .arrow { font-size: 11px; transition: transform 0.3s; color: var(--text-sub); }
+    .accordion-btn.open .arrow { transform: rotate(180deg); }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+    .accordion-content.open { max-height: 500px; }
+    .accordion-inner { padding: 4px 0 8px; }
+    .account-item { padding: 16px 4px; border-bottom: 1px solid #EEEEEE; }
+    .account-item:last-child { border-bottom: none; }
+    .account-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .account-info { font-size: 14px; color: var(--text-main); font-family: var(--font-sans); }
+    .account-info .bank { color: var(--text-sub); font-size: 13px; }
+    .account-info .separator { color: var(--line-color); margin: 0 8px; font-weight: 300; }
+    .account-holder { font-size: 13px; color: var(--text-sub); font-family: var(--font-sans); }
+    .copy-btn { padding: 6px 14px; background: none; color: var(--point-color); border: 1px solid #E0DDD8; border-radius: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: var(--font-sans); transition: all 0.2s; }
+    .copy-btn:hover { background: #F7F6F4; }
+    .copy-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* 푸터 */
+    .footer-section { padding: 0; text-align: center; }
+    .footer-image { width: 100%; height: 420px; object-fit: cover; object-position: center 30%; }
+    .footer-content { padding: 48px var(--padding-x) 40px; background: var(--bg-color); }
+    .footer-message { font-family: var(--font-serif); font-size: 16px; color: var(--text-main); line-height: 2; margin-bottom: 36px; font-weight: 300; }
+    .share-buttons { display: flex; flex-direction: column; gap: 10px; max-width: 260px; margin: 0 auto 40px; }
+    .share-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border: 1px solid var(--line-color); border-radius: 8px; background: #fff; font-size: 14px; font-family: var(--font-sans); color: var(--text-main); cursor: pointer; transition: background 0.2s; }
+    .share-btn:hover { background: #F7F6F4; }
+    .share-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .share-btn .kakao-icon { width: 20px; height: 20px; background: #3C1E1E; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .share-btn .kakao-icon span { color: #fff; font-size: 9px; font-weight: 700; letter-spacing: -0.5px; }
+    .footer-copyright { font-size: 11px; color: var(--text-sub); letter-spacing: 1px; font-family: var(--font-sans); }
 
     /* 모달 공통 */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 100; }
@@ -290,17 +383,104 @@
     }
 
     /* 리마인드 */
-    .remind-label { font-size: 11px; letter-spacing: 2px; color: var(--point-color); margin-bottom: 10px; }
-    .remind-desc { font-size: 14px; color: var(--text-sub); line-height: 1.9; margin: 16px 0 28px; }
+    .remind-label { font-size: 13px; letter-spacing: 2px; color: var(--point-color); margin-bottom: 10px; }
+    .remind-desc { font-size: 16px; color: var(--text-sub); line-height: 1.9; margin: 16px 0 28px; }
     .remind-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border: 1px solid var(--point-color); border-radius: 40px; background: transparent; color: var(--point-color); font-size: 14px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; }
     .remind-btn:hover { background: var(--point-color); color: #fff; }
     .remind-modal-desc { font-size: 13px; color: var(--text-sub); line-height: 1.9; text-align: center; margin-bottom: 24px; }
     .remind-privacy { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sub); margin: 16px 0; cursor: pointer; }
     .remind-privacy input { accent-color: var(--point-color); width: 15px; height: 15px; cursor: pointer; }
 
+    /* 안내 탭 섹션 */
+    .info-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--line-color);
+        margin-bottom: 32px;
+    }
+    .info-tab {
+        flex: 1;
+        padding: 14px 0;
+        font-size: 15px;
+        font-family: var(--font-serif);
+        color: var(--text-sub);
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+    .info-tab.active {
+        color: var(--text-main);
+        font-weight: 500;
+        border-bottom-color: var(--text-main);
+    }
+    .info-tab-content {
+        display: none;
+        text-align: center;
+    }
+    .info-tab-content.active {
+        display: block;
+    }
+    .info-tab-content p {
+        font-size: 16px;
+        line-height: 2;
+        color: var(--text-main);
+    }
+    .info-tab-content .info-sub {
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: 8px;
+    }
+    .info-tab-icon {
+        font-size: 28px;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    /* 중간 풀폭 사진 */
+    .full-photo { width: 100%; height: auto; display: block; object-fit: cover; max-height: 70vh; }
+
     /* 토스트 팝업 */
     .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 13px; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 200; }
     .toast.show { opacity: 1; }
+
+    /* ==========================================================================
+       [반응형 대응]
+       ========================================================================== */
+    /* 아주 작은 화면 (360px 이하) */
+    @media (max-width: 360px) {
+        :root {
+            --padding-x: 16px;
+            --section-py: 56px;
+        }
+        .intro-text { font-size: 14px; }
+        .calendar-section { padding: 48px 16px; }
+        .calendar-day { font-size: 12px; }
+        .calendar-day-header { font-size: 11px; }
+        .contact-columns { grid-template-columns: 1fr; }
+        .radio-group.radio-horizontal .radio-label {
+            min-width: calc(50% - 5px);
+        }
+    }
+
+    /* 작은 화면 (361~420px) */
+    @media (min-width: 361px) and (max-width: 420px) {
+        :root {
+            --padding-x: 20px;
+            --section-py: 64px;
+        }
+        .gallery-container { gap: 3px; }
+    }
+
+    /* PC에서 볼 때 */
+    @media (min-width: 481px) {
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 
 </style>
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xa06xq8syg"></script>
@@ -309,25 +489,26 @@
 <div class="mobile-container">
     
     <section class="main-cover">
-        <div class="main-img-placeholder">
-            [웨딩 사진 영역 750x1200]
-        </div>
-        <div class="main-title fade-up">
-            <h1>이성진 & 이현주</h1>
-            <p>2026. 07. 11 SAT 12:30 PM</p>
-            <p>라시따시어터</p>
+        <img class="main-cover-img" src="img/img01.png" alt="메인 웨딩 사진">
+        <svg class="cover-img05" viewBox="0 0 902 43" xmlns="http://www.w3.org/2000/svg">
+          <path d="M902 42.3203H0V38.3203H89.7998C184.887 38.3202 272.881 0 451.001 0C629.12 0.000135692 717.114 38.3203 812.201 38.3203H902V42.3203Z" fill="#FAFAF9"/>
+        </svg>
+        <div class="cover-overlay">
+            <div class="cover-overlay-top">
+                <img class="cover-img02" src="img/img02.svg" alt="">
+                <p class="cover-main-title">OUR SUMMER</p>
+                <p class="cover-date">2026.07.11 | 12:30 PM</p>
+            </div>
         </div>
     </section>
 
     <section id="invitation" class="fade-up">
-        <h2 style="margin-bottom: 32px; font-size: 14px; color: var(--point-color); letter-spacing: 2px;">INVITATION</h2>
+        <p class="section-label">INVITATION</p>
+        <h2>소중한 분들을 초대합니다</h2>
         <div class="intro-text">
-            서로가 마주보며 다져온 사랑을<br>
-            이제 함께 한 곳을 바라보며<br>
-            걸어갈 수 있는 큰 사랑으로 키우고자 합니다.<br>
-            저희 두 사람이 사랑의 이름으로<br>
-            지켜나갈 수 있게 앞날을<br>
-            축복해 주시면 감사하겠습니다.
+            따스한 햇살 아래, 서로의 동반자가 되어<br>
+            모든 계절을 함께 걷고자 합니다.<br>
+            그 뜻깊은 자리에 함께해 주시면 감사하겠습니다.
         </div>
         
         <div style="margin-top: 48px;">
@@ -338,95 +519,169 @@
                 <span class="parent-names">이재복 · 김선희</span><span class="relation">의 딸</span> <strong>이현주</strong>
             </div>
         </div>
-        <button class="btn btn-outline" style="margin-top: 32px; max-width: 200px; margin-left: auto; margin-right: auto; font-size: 14px;" onclick="openContactModal()">☎ 연락하기</button>
+        <button class="btn btn-outline" style="margin-top: 32px; max-width: 200px; margin-left: auto; margin-right: auto;" onclick="openContactModal()">☎ 연락하기</button>
     </section>
 
-    <section class="fade-up">
+    <section class="calendar-section fade-up">
+        <p class="section-label">CALENDAR</p>
+        <h2>예식 일시</h2>
+        <div class="calendar-info">
+            <div class="calendar-info-date">2026년 7월 11일 토요일 오후 12시 30분</div>
+            <div class="calendar-info-location">라시따시어 1층</div>
+        </div>
+        <div class="calendar-grid">
+            <div class="calendar-day-header">일</div>
+            <div class="calendar-day-header">월</div>
+            <div class="calendar-day-header">화</div>
+            <div class="calendar-day-header">수</div>
+            <div class="calendar-day-header">목</div>
+            <div class="calendar-day-header">금</div>
+            <div class="calendar-day-header">토</div>
+
+            <div class="calendar-day other-month">28</div>
+            <div class="calendar-day other-month">29</div>
+            <div class="calendar-day other-month">30</div>
+            <div class="calendar-day">1</div>
+            <div class="calendar-day">2</div>
+            <div class="calendar-day">3</div>
+            <div class="calendar-day">4</div>
+
+            <div class="calendar-day">5</div>
+            <div class="calendar-day">6</div>
+            <div class="calendar-day">7</div>
+            <div class="calendar-day">8</div>
+            <div class="calendar-day">9</div>
+            <div class="calendar-day">10</div>
+            <div class="calendar-day highlight">11</div>
+
+            <div class="calendar-day">12</div>
+            <div class="calendar-day">13</div>
+            <div class="calendar-day">14</div>
+            <div class="calendar-day">15</div>
+            <div class="calendar-day">16</div>
+            <div class="calendar-day">17</div>
+            <div class="calendar-day">18</div>
+
+            <div class="calendar-day">19</div>
+            <div class="calendar-day">20</div>
+            <div class="calendar-day">21</div>
+            <div class="calendar-day">22</div>
+            <div class="calendar-day">23</div>
+            <div class="calendar-day">24</div>
+            <div class="calendar-day">25</div>
+
+            <div class="calendar-day">26</div>
+            <div class="calendar-day">27</div>
+            <div class="calendar-day">28</div>
+            <div class="calendar-day">29</div>
+            <div class="calendar-day">30</div>
+            <div class="calendar-day">31</div>
+            <div class="calendar-day empty"></div>
+        </div>
+
         <div class="countdown-wrap">
-            <div class="d-day" id="d-day-text">D - 00</div>
+            <div class="d-day" id="d-day-text"></div>
             <div class="time-boxes">
                 <div class="time-box"><span class="time-num" id="cd-days">00</span><span class="time-label">Days</span></div>
                 <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
                 <div class="time-box"><span class="time-num" id="cd-hours">00</span><span class="time-label">Hour</span></div>
                 <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
                 <div class="time-box"><span class="time-num" id="cd-mins">00</span><span class="time-label">Min</span></div>
+                <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
+                <div class="time-box"><span class="time-num" id="cd-secs">00</span><span class="time-label">Sec</span></div>
             </div>
         </div>
     </section>
 
+    <section class="fade-up" style="padding: 0;">
+        <img class="full-photo" src="img/img01.png" alt="웨딩사진">
+    </section>
+
     <section class="gallery-section fade-up">
-        <h2 style="margin-bottom: 24px; font-size: 18px;">Gallery</h2>
-        <div class="gallery-container" id="galleryContainer">
-            <div class="gallery-item">사진 1</div>
-            <div class="gallery-item">사진 2</div>
-            <div class="gallery-item">사진 3</div>
-            <div class="gallery-item">사진 4</div>
-            <div class="gallery-item">사진 5</div>
-            <div class="gallery-item">사진 6</div>
-            <div class="gallery-item">사진 7</div>
-            <div class="gallery-item">사진 8</div>
-            <div class="gallery-item">사진 9</div>
-            <div class="gallery-item">사진 10</div>
-            <div class="gallery-item">사진 11</div>
-            <div class="gallery-item">사진 12</div>
-            <div class="gallery-item">사진 13</div>
-            <div class="gallery-item">사진 14</div>
-            <div class="gallery-item">사진 15</div>
+        <p class="section-label">GALLERY</p>
+        <h2>우리의 순간</h2>
+        <div class="gallery-container">
+            <div class="gallery-item" onclick="openViewer(0)"><img src="img/ga1.jpg" alt="갤러리 사진 1" style="object-position: center 30%;"></div>
+            <div class="gallery-item" onclick="openViewer(1)"><img src="img/ga2.jpg" alt="갤러리 사진 2" style="object-position: center 20%;"></div>
+            <div class="gallery-item" onclick="openViewer(2)"><img src="img/ga3.jpg" alt="갤러리 사진 3" style="object-position: center 25%;"></div>
+            <div class="gallery-item" onclick="openViewer(3)"><img src="img/ga4.jpg" alt="갤러리 사진 4" style="object-position: center 30%;"></div>
+            <div class="gallery-item" onclick="openViewer(4)"><img src="img/ga5.jpg" alt="갤러리 사진 5" style="object-position: center 20%;"></div>
+            <div class="gallery-item" onclick="openViewer(5)"><img src="img/ga6.jpg" alt="갤러리 사진 6" style="object-position: center 25%;"></div>
+            <div class="gallery-item" onclick="openViewer(6)"><img src="img/ga7.jpg" alt="갤러리 사진 7" style="object-position: center 20%;"></div>
         </div>
     </section>
 
     <section class="fade-up">
-        <h2 style="margin-bottom: 8px; font-size: 18px;">오시는 길</h2>
-        <p style="font-size: 15px;"><strong>라시따시어터</strong></p>
-        <p style="font-size: 13px; color: var(--text-sub);">서울 서초구 매헌로 16</p>
+        <p class="section-label">LOCATION</p>
+        <h2>오시는 길</h2>
+        <p style="font-size: 16px;"><strong>라시따시어터</strong></p>
+        <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 24px;">서울 서초구 매헌로 16</p>
 
         <div id="map" style="width: 100%; height: 250px; border-radius: 8px;"></div>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 32px;">
-            <button class="btn btn-outline" style="font-size: 13px; padding: 10px;">네이버 지도</button>
-            <button class="btn btn-outline" style="font-size: 13px; padding: 10px;">카카오 지도</button>
+        <div style="display: flex; gap: 8px; margin-top: 12px; margin-bottom: 32px;">
+            <button class="btn btn-outline" style="padding: 10px;">네이버 지도</button>
+            <button class="btn btn-outline" style="padding: 10px;">카카오 지도</button>
         </div>
 
-        <div class="transport-info">
-            <div class="transport-item">
-                <div class="transport-icon">🚇</div>
-                <div class="transport-desc">
-                    <strong>지하철</strong><br>
-                    신분당선 '양재시민의숲역' 하차
+        <div class="info-tabs">
+            <button class="info-tab active" onclick="switchTab(0)">오시는 길</button>
+            <button class="info-tab" onclick="switchTab(1)">주차안내</button>
+            <button class="info-tab" onclick="switchTab(2)">식사안내</button>
+        </div>
+
+        <div class="info-tab-content active" id="infoTab0">
+            <div class="transport-info">
+                <div class="transport-item">
+                    <div class="transport-icon">🚇</div>
+                    <div class="transport-desc">
+                        <strong>지하철</strong><br>
+                        신분당선 '양재시민의숲역' 하차
+                    </div>
                 </div>
-            </div>
-            <div class="transport-item">
-                <div class="transport-icon">🚌</div>
-                <div class="transport-desc">
-                    <strong>셔틀버스</strong><br>
-                    양재시민의숲역 5번 출구<br>
-                    (예식 1시간 전부터 10분 간격 운행)
+                <div class="transport-item">
+                    <div class="transport-icon">🚌</div>
+                    <div class="transport-desc">
+                        <strong>셔틀버스</strong><br>
+                        양재시민의숲역 5번 출구<br>
+                        (예식 1시간 전부터 10분 간격 운행)
+                    </div>
                 </div>
-            </div>
-            <div class="transport-item">
-                <div class="transport-icon">🚍</div>
-                <div class="transport-desc">
-                    <strong>마을버스</strong><br>
-                    서초20번 (5번 출구 횡단보도 건너편)<br>
-                    → [하이브랜드] 하차 → 라시따 A게이트
-                </div>
-            </div>
-            <div class="transport-item">
-                <div class="transport-icon">🚗</div>
-                <div class="transport-desc" style="width: 100%;">
-                    <strong>자가용 (주차안내)</strong>
-                    <div class="parking-highlight">
-                        지하 주차장 1,000대 동시 주차 가능<br>
-                        하객 3시간 무료 주차 제공
+                <div class="transport-item">
+                    <div class="transport-icon">🚍</div>
+                    <div class="transport-desc">
+                        <strong>마을버스</strong><br>
+                        서초20번 (5번 출구 횡단보도 건너편)<br>
+                        → [하이브랜드] 하차 → 라시따 A게이트
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="info-tab-content" id="infoTab1">
+            <span class="info-tab-icon">🅿️</span>
+            <p>
+                지하 주차장 1,000대 이상 동시 주차가 가능합니다.<br>
+                귀한 발걸음, 편안하게 오실 수 있도록<br>
+                넉넉한 주차 공간을 준비하였습니다.
+            </p>
+            <p class="info-sub">하객 3시간 무료 주차 제공</p>
+        </div>
+
+        <div class="info-tab-content" id="infoTab2">
+            <span class="info-tab-icon">🍽️</span>
+            <p>
+                90분의 여유로운 예식과 함께<br>
+                식사 및 주류를 부담 없이 즐기실 수 있도록<br>
+                정성껏 준비하였습니다.
+            </p>
+            <p class="info-sub">예식 후 같은 층에서 바로 식사가 가능합니다</p>
+        </div>
     </section>
 
     <section class="fade-up" style="background-color: #F4F1EC; margin: 40px 0;">
-        <h2 style="margin-bottom: 16px; font-size: 18px;">참석 의사 전달</h2>
-        <p style="font-size: 14px; color: var(--text-sub); margin-bottom: 24px;">
+        <h2>참석 의사 전달</h2>
+        <p style="color: var(--text-sub); margin-bottom: 24px; font-size: 16px;">
             축하해주시는 모든 분들을 귀하게 모실 수 있도록<br>
             참석 의사를 전달해 주시면 감사하겠습니다.
         </p>
@@ -435,7 +690,7 @@
 
     <section class="fade-up" style="text-align: center;">
         <p class="remind-label">REMIND</p>
-        <h2 style="font-size: 22px; margin-bottom: 0;">리마인드 알림</h2>
+        <h2>REMIND</h2>
         <p class="remind-desc">
             소중한 날을 잊지 않도록,<br>
             결혼식 일주일 전, 하루 전<br>
@@ -448,38 +703,67 @@
     </section>
 
     <section class="fade-up">
-        <h2 style="margin-bottom: 24px; font-size: 18px;">마음 전하실 곳</h2>
-        
+        <div class="account-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3c-1 4-4 7-4 12 0 3 2 5 4 5s4-2 4-5c0-5-3-8-4-12z" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8c2 2 4 4 4 7" stroke-linecap="round"/></svg>
+        </div>
+        <h2>마음 전하실 곳</h2>
+
         <div class="account-group">
             <button class="accordion-btn" onclick="toggleAccordion(this)">
-                신랑측 계좌번호 보기 <span>+</span>
+                신랑측 계좌번호 <span class="arrow">∨</span>
             </button>
             <div class="accordion-content">
-                <div class="account-details">
-                    <div>
-                        <p style="font-size: 12px; color: var(--text-sub);">신한은행</p>
-                        <p><strong>110-499-348765</strong> (예금주: 이성진)</p>
+                <div class="accordion-inner">
+                    <div class="account-item">
+                        <div class="account-row">
+                            <span class="account-info"><span class="bank">신한</span><span class="separator">|</span>110-499-348765</span>
+                            <button class="copy-btn" onclick="copyToClipboard('110499348765')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
+                        </div>
+                        <span class="account-holder">이성진</span>
                     </div>
-                    <button class="copy-btn" onclick="copyToClipboard('110499348765')">복사</button>
                 </div>
             </div>
         </div>
 
         <div class="account-group">
             <button class="accordion-btn" onclick="toggleAccordion(this)">
-                신부측 계좌번호 보기 <span>+</span>
+                신부측 계좌번호 <span class="arrow">∨</span>
             </button>
             <div class="accordion-content">
-                <div class="account-details">
-                    <div>
-                        <p style="font-size: 12px; color: var(--text-sub);">국민은행</p>
-                        <p><strong>613802-01-368046</strong> (예금주: 이현주)</p>
+                <div class="accordion-inner">
+                    <div class="account-item">
+                        <div class="account-row">
+                            <span class="account-info"><span class="bank">국민</span><span class="separator">|</span>613802-01-368046</span>
+                            <button class="copy-btn" onclick="copyToClipboard('61380201368046')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
+                        </div>
+                        <span class="account-holder">이현주</span>
                     </div>
-                    <button class="copy-btn" onclick="copyToClipboard('613802-01-368046')">복사</button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- 푸터 -->
+    <div class="footer-section">
+        <img src="img/img04.png" alt="Wedding" class="footer-image">
+        <div class="footer-content">
+            <p class="footer-message">
+                응원하고 격려해주신 모든 분들께 감사드리며<br>
+                행복하게 잘 살겠습니다.
+            </p>
+            <div class="share-buttons">
+                <button class="share-btn" onclick="shareKakao()">
+                    <span class="kakao-icon"><span>TALK</span></span>
+                    카카오톡 공유하기
+                </button>
+                <button class="share-btn" onclick="copyLink()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    링크주소 복사하기
+                </button>
+            </div>
+            <p class="footer-copyright">Copyright 2026. <strong>FROM TODAY.</strong> All rights reserved.</p>
+        </div>
+    </div>
 
 </div>
 
@@ -488,70 +772,72 @@
     <button class="modal-close" onclick="closeContactModal()">×</button>
     <div class="contact-modal-title">연락하기</div>
 
-    <div class="contact-group">
-        <div class="contact-section-title">신랑측</div>
-        <div class="contact-item">
-            <div class="contact-item-info">
-                <span class="contact-item-role">신랑</span>
-                <span class="contact-item-name">이성진</span>
+    <div class="contact-columns">
+        <div class="contact-group">
+            <div class="contact-section-title">신랑측</div>
+            <div class="contact-item">
+                <div class="contact-item-info">
+                    <span class="contact-item-role">신랑</span>
+                    <span class="contact-item-name">이성진</span>
+                </div>
+                <div class="contact-btns">
+                    <a href="tel:010-7125-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                    <a href="sms:010-7125-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+                </div>
             </div>
-            <div class="contact-btns">
-                <a href="tel:010-7125-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-                <a href="sms:010-7125-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+            <div class="contact-item">
+                <div class="contact-item-info">
+                    <span class="contact-item-role">아버지</span>
+                    <span class="contact-item-name">이재광</span>
+                </div>
+                <div class="contact-btns">
+                    <a href="tel:010-2346-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                    <a href="sms:010-2346-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-info">
+                    <span class="contact-item-role">어머니</span>
+                    <span class="contact-item-name">신영섭</span>
+                </div>
+                <div class="contact-btns">
+                    <a href="tel:010-3353-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                    <a href="sms:010-3353-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+                </div>
             </div>
         </div>
-        <div class="contact-item">
-            <div class="contact-item-info">
-                <span class="contact-item-role">아버지</span>
-                <span class="contact-item-name">이재광</span>
-            </div>
-            <div class="contact-btns">
-                <a href="tel:010-2346-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-                <a href="sms:010-2346-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
-            </div>
-        </div>
-        <div class="contact-item">
-            <div class="contact-item-info">
-                <span class="contact-item-role">어머니</span>
-                <span class="contact-item-name">신영섭</span>
-            </div>
-            <div class="contact-btns">
-                <a href="tel:010-3353-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-                <a href="sms:010-3353-2381" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
-            </div>
-        </div>
-    </div>
 
-    <div class="contact-group">
-        <div class="contact-section-title">신부측</div>
-        <div class="contact-item">
-            <div class="contact-item-info">
-                <span class="contact-item-role">신부</span>
-                <span class="contact-item-name">이현주</span>
+        <div class="contact-group">
+            <div class="contact-section-title">신부측</div>
+            <div class="contact-item">
+                <div class="contact-item-info">
+                    <span class="contact-item-role">신부</span>
+                    <span class="contact-item-name">이현주</span>
+                </div>
+                <div class="contact-btns">
+                    <a href="tel:010-3353-8070" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                    <a href="sms:010-3353-8070" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+                </div>
             </div>
-            <div class="contact-btns">
-                <a href="tel:010-3353-8070" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-                <a href="sms:010-3353-8070" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+            <div class="contact-item">
+                <div class="contact-item-info">
+                    <span class="contact-item-role">아버지</span>
+                    <span class="contact-item-name">이재복</span>
+                </div>
+                <div class="contact-btns">
+                    <a href="tel:010-8994-4779" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                    <a href="sms:010-8994-4779" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+                </div>
             </div>
-        </div>
-        <div class="contact-item">
-            <div class="contact-item-info">
-                <span class="contact-item-role">아버지</span>
-                <span class="contact-item-name">이재복</span>
-            </div>
-            <div class="contact-btns">
-                <a href="tel:010-8994-4779" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-                <a href="sms:010-8994-4779" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
-            </div>
-        </div>
-        <div class="contact-item">
-            <div class="contact-item-info">
-                <span class="contact-item-role">어머니</span>
-                <span class="contact-item-name">김선희</span>
-            </div>
-            <div class="contact-btns">
-                <a href="tel:010-2439-1664" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-                <a href="sms:010-2439-1664" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+            <div class="contact-item">
+                <div class="contact-item-info">
+                    <span class="contact-item-role">어머니</span>
+                    <span class="contact-item-name">김선희</span>
+                </div>
+                <div class="contact-btns">
+                    <a href="tel:010-2439-1664" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.17 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+                    <a href="sms:010-2439-1664" class="contact-btn"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+                </div>
             </div>
         </div>
     </div>
@@ -634,6 +920,18 @@
     </button>
 </div>
 
+<div class="gallery-viewer" id="galleryViewer">
+    <div class="gallery-viewer-body">
+        <button class="gallery-viewer-prev" onclick="viewerNav(-1)">&#8249;</button>
+        <img id="viewerImg" src="" alt="">
+        <button class="gallery-viewer-next" onclick="viewerNav(1)">&#8250;</button>
+    </div>
+    <div class="gallery-viewer-bottom">
+        <div class="gallery-viewer-counter"><span class="current" id="viewerCurrent">1</span> / <span id="viewerTotal">7</span></div>
+        <button class="gallery-viewer-close" onclick="closeViewer()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+</div>
+
 <div class="toast" id="toastMsg">계좌번호가 복사되었습니다.</div>
 
 <script>
@@ -669,55 +967,68 @@
         });
     }
 
-    // 2. 갤러리 드래그/터치 스와이프
-    const galleryContainer = document.getElementById('galleryContainer');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    // 2. 갤러리 뷰어
+    const gallerySrcs = Array.from(document.querySelectorAll('.gallery-item img')).map(img => img.src);
+    let viewerIndex = 0;
 
-    galleryContainer.addEventListener('mousedown', (e) => {
-        isDown = true;
-        galleryContainer.classList.add('dragging');
-        startX = e.pageX - galleryContainer.offsetLeft;
-        scrollLeft = galleryContainer.scrollLeft;
+    function openViewer(i) {
+        viewerIndex = i;
+        updateViewer();
+        document.getElementById('galleryViewer').classList.add('active');
+        document.documentElement.style.overflow = 'hidden';
+    }
+    function closeViewer() {
+        document.getElementById('galleryViewer').classList.remove('active');
+        document.documentElement.style.overflow = '';
+    }
+    function viewerNav(dir) {
+        viewerIndex = (viewerIndex + dir + gallerySrcs.length) % gallerySrcs.length;
+        updateViewer();
+    }
+    function updateViewer() {
+        document.getElementById('viewerImg').src = gallerySrcs[viewerIndex];
+        document.getElementById('viewerCurrent').textContent = viewerIndex + 1;
+        document.getElementById('viewerTotal').textContent = gallerySrcs.length;
+    }
+    // 키보드 좌우 화살표
+    document.addEventListener('keydown', (e) => {
+        if (!document.getElementById('galleryViewer').classList.contains('active')) return;
+        if (e.key === 'ArrowLeft') viewerNav(-1);
+        if (e.key === 'ArrowRight') viewerNav(1);
+        if (e.key === 'Escape') closeViewer();
     });
+    // 스와이프
+    (function() {
+        const body = document.querySelector('.gallery-viewer-body');
+        if (!body) return;
+        let sx = 0;
+        body.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; });
+        body.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - sx;
+            if (Math.abs(dx) > 50) viewerNav(dx > 0 ? -1 : 1);
+        });
+    })();
 
-    galleryContainer.addEventListener('mouseleave', () => {
-        isDown = false;
-        galleryContainer.classList.remove('dragging');
-    });
-
-    galleryContainer.addEventListener('mouseup', () => {
-        isDown = false;
-        galleryContainer.classList.remove('dragging');
-    });
-
-    galleryContainer.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - galleryContainer.offsetLeft;
-        const walk = (x - startX) * 1;
-        galleryContainer.scrollLeft = scrollLeft - walk;
-    });
-
-    // PC 마우스 휠 가로 스크롤
-    galleryContainer.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const itemWidth = galleryContainer.querySelector('.gallery-item').offsetWidth + 12;
-        const direction = e.deltaY > 0 ? 1 : -1;
-        galleryContainer.scrollBy({ left: itemWidth * direction });
-    }, { passive: false });
+    // 2-1. 안내 탭 전환
+    function switchTab(idx) {
+        document.querySelectorAll('.info-tab').forEach((tab, i) => {
+            tab.classList.toggle('active', i === idx);
+        });
+        document.querySelectorAll('.info-tab-content').forEach((content, i) => {
+            content.classList.toggle('active', i === idx);
+        });
+    }
 
     // 3. 리마인드 모달
     function openRemindModal() {
         document.getElementById('remindModalBg').classList.add('active');
         document.getElementById('remindModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
     }
     function closeRemindModal() {
         document.getElementById('remindModalBg').classList.remove('active');
         document.getElementById('remindModal').classList.remove('active');
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
     }
     function submitRemind() {
         const name = document.getElementById('remind-name').value.trim();
@@ -757,12 +1068,12 @@
     function openContactModal() {
         document.getElementById('contactModalBg').classList.add('active');
         document.getElementById('contactModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
     }
     function closeContactModal() {
         document.getElementById('contactModalBg').classList.remove('active');
         document.getElementById('contactModal').classList.remove('active');
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
     }
 
     // 3-1. 참석 의사 모달 제어
@@ -772,13 +1083,13 @@
     function openModal() {
         modalBg.classList.add('active');
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
     }
 
     function closeModal() {
         modalBg.classList.remove('active');
         modal.classList.remove('active');
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
     }
 
     // 3-1. RSVP 제출
@@ -825,14 +1136,13 @@
     // 4. 아코디언 제어
     function toggleAccordion(btn) {
         const content = btn.nextElementSibling;
-        const icon = btn.querySelector('span');
-        
+
         if (content.classList.contains('open')) {
             content.classList.remove('open');
-            icon.innerText = '+';
+            btn.classList.remove('open');
         } else {
             content.classList.add('open');
-            icon.innerText = '-';
+            btn.classList.add('open');
         }
     }
 
@@ -847,24 +1157,56 @@
         });
     }
 
-    // 6. 간단한 카운트다운 (날짜는 임의 설정, 실제 예식일로 변경하세요)
-    const targetDate = new Date('2026-12-31T12:30:00').getTime();
-    
-    setInterval(() => {
+    // 공유 기능
+    function shareKakao() {
+        if (window.Kakao && Kakao.isInitialized()) {
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '성진 ♥ 현주 결혼합니다',
+                    description: '2026년 7월 11일 토요일 오후 12시 30분\n라시따시어터',
+                    imageUrl: window.location.origin + '/img/img01.png',
+                    link: { mobileWebUrl: window.location.href, webUrl: window.location.href }
+                },
+                buttons: [{ title: '청첩장 보기', link: { mobileWebUrl: window.location.href, webUrl: window.location.href } }]
+            });
+        } else {
+            alert('카카오톡 공유 기능을 준비 중입니다.');
+        }
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const toast = document.getElementById('toastMsg');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+
+    // 6. 카운트다운 (즉시 실행 + 매초 갱신)
+    const targetDate = new Date('2026-07-11T12:30:00').getTime();
+
+    function updateCountdown() {
         const now = new Date().getTime();
         const distance = targetDate - now;
 
-        if (distance < 0) return; // 예식일 지남
+        if (distance < 0) {
+            document.getElementById('d-day-text').innerText = 'D-Day';
+            return;
+        }
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById('d-day-text').innerText = `D - ${days}`;
         document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
         document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
         document.getElementById('cd-mins').innerText = String(minutes).padStart(2, '0');
-    }, 1000);
+        document.getElementById('cd-secs').innerText = String(seconds).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 </script>
 
 </body>

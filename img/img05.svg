@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+  <path d="M0,35 Q250,5 500,35 T1000,35 L1000,100 L0,100 Z" fill="#FAFAF8"/>
+</svg>
