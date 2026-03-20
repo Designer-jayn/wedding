@@ -14,6 +14,7 @@
     @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Book.otf') format('opentype'); font-weight: 400; }
     @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Medium.otf') format('opentype'); font-weight: 500; }
     @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Bold.otf') format('opentype'); font-weight: 700; }
+    @font-face { font-family: 'Cafe24Oneprettynight'; src: url('fonts/Cafe24Oneprettynight-v2.0.otf') format('opentype'); font-weight: 400; }
 
     /* ==========================================================================
        [1. CSS 변수 및 색상 정의]
@@ -69,8 +70,8 @@
     }
     section:last-child { border-bottom: none; }
     h1 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; letter-spacing: 1px; }
-    .section-label { font-family: var(--font-sans); font-weight: 400; font-size: 11px; letter-spacing: 3px; color: var(--point-color); text-transform: uppercase; margin-bottom: 8px; }
-    h2 { font-family: var(--font-serif); font-weight: 400; font-size: 18px; letter-spacing: 1px; color: var(--text-main); margin-bottom: 24px; }
+    .section-label { font-family: var(--font-sans); font-weight: 300; font-size: 14px; letter-spacing: 3px; color: var(--point-color); text-transform: uppercase; margin-bottom: 4px; }
+    h2 { font-family: 'Cafe24Oneprettynight', var(--font-serif); font-weight: 400; font-size: 20px; letter-spacing: 1px; color: var(--text-main); margin-bottom: 24px; -webkit-text-stroke: 0.3px var(--text-main); }
     h3 { font-family: var(--font-serif); font-weight: 400; font-size: 16px; }
 
     /* ==========================================================================
@@ -118,8 +119,6 @@
 
     /* 달력 섹션 */
     .calendar-section { padding: var(--section-py) var(--padding-x); max-width: 460px; margin: 0 auto; }
-    .calendar-section h2 { font-size: 15px; letter-spacing: 2px; color: var(--point-color); }
-    .section-label { font-size: 15px; letter-spacing: 2px; color: var(--point-color); font-weight: 400; }
     .calendar-info { font-size: 16px; line-height: 1.8; margin-bottom: 24px; color: var(--text-main); }
     .calendar-info-date { font-weight: 500; margin-bottom: 8px; }
     .calendar-info-location { color: var(--text-sub); }
@@ -400,8 +399,8 @@
     .info-tab {
         flex: 1;
         padding: 14px 0;
-        font-size: 15px;
-        font-family: var(--font-serif);
+        font-size: 18px;
+        font-family: 'Cafe24Oneprettynight', var(--font-serif);
         color: var(--text-sub);
         background: none;
         border: none;
@@ -483,7 +482,6 @@
     }
 
 </style>
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xa06xq8syg"></script>
 </head>
 <body>
 <div class="mobile-container">
@@ -620,8 +618,8 @@
         <div id="map" style="width: 100%; height: 250px; border-radius: 8px;"></div>
 
         <div style="display: flex; gap: 8px; margin-top: 12px; margin-bottom: 32px;">
-            <button class="btn btn-outline" style="padding: 10px;">네이버 지도</button>
-            <button class="btn btn-outline" style="padding: 10px;">카카오 지도</button>
+            <button class="btn btn-outline" style="padding: 10px;" onclick="openNaverMap()">네이버 지도</button>
+            <button class="btn btn-outline" style="padding: 10px;" onclick="openKakaoMap()">카카오 지도</button>
         </div>
 
         <div class="info-tabs">
@@ -934,6 +932,7 @@
 
 <div class="toast" id="toastMsg">계좌번호가 복사되었습니다.</div>
 
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=cb6c5bd1b3dba099a9eb93d712a6aeff"></script>
 <script>
     // 1. 스크롤 애니메이션 (Fade-in)
     const observer = new IntersectionObserver((entries) => {
@@ -946,25 +945,22 @@
 
     document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
 
-    // 1-1. 네이버 지도 초기화
+    // 1-1. 카카오 지도 초기화
     var mapElement = document.getElementById('map');
-    if (mapElement) {
+    if (mapElement && typeof kakao !== 'undefined') {
         var mapOptions = {
-            center: new naver.maps.LatLng(37.4855, 127.0274), // 라시따시어터 좌표
-            zoom: 15,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: naver.maps.Position.TOP_RIGHT
-            }
+            center: new kakao.maps.LatLng(37.4632, 127.0367),
+            level: 3
         };
-        var map = new naver.maps.Map('map', mapOptions);
+        var map = new kakao.maps.Map(mapElement, mapOptions);
 
-        // 마커 추가
-        var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(37.4855, 127.0274),
-            map: map,
-            title: '라시따시어터'
+        var marker = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(37.4632, 127.0367),
+            map: map
         });
+
+        var zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     }
 
     // 2. 갤러리 뷰어
@@ -1017,6 +1013,43 @@
         document.querySelectorAll('.info-tab-content').forEach((content, i) => {
             content.classList.toggle('active', i === idx);
         });
+    }
+
+    // 2-2. 네이버 지도 열기
+    function openNaverMap() {
+        var title = '라시따시어터';
+        var address = '서울 서초구 매헌로 16 하이브랜드';
+        var naverMapUrl = 'https://map.naver.com/v5/search/' + encodeURIComponent(title);
+        var naverAppUrl = 'nmap://search?query=' + encodeURIComponent(title);
+
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // 모바일: 앱 시도, 실패하면 웹 열기
+            var timer = setTimeout(function() {
+                window.location.href = naverMapUrl;
+            }, 500);
+            window.location.href = naverAppUrl;
+        } else {
+            // PC: 웹 열기
+            window.open(naverMapUrl, '_blank');
+        }
+    }
+
+    // 2-3. 카카오 지도 열기
+    function openKakaoMap() {
+        var title = '라시따시어터';
+        var kakaoMapUrl = 'https://map.kakao.com/link/search/' + encodeURIComponent(title);
+        var kakaoAppUrl = 'kakaomap://search?q=' + encodeURIComponent(title);
+
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // 모바일: 앱 시도, 실패하면 웹 열기
+            var timer = setTimeout(function() {
+                window.location.href = kakaoMapUrl;
+            }, 500);
+            window.location.href = kakaoAppUrl;
+        } else {
+            // PC: 웹 열기
+            window.open(kakaoMapUrl, '_blank');
+        }
     }
 
     // 3. 리마인드 모달
