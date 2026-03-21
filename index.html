@@ -110,12 +110,12 @@
     .parents-info strong { font-weight: 500; }
 
     /* 카운트다운 */
-    .countdown-wrap { padding: 16% 0 0; position: absolute; top: 50px; left: 0; right: 0; z-index: 10; border-top: none; }
+    .countdown-wrap { padding: 10% 0 0; position: absolute; top: 50px; left: 0; right: 0; z-index: 10; border-top: none; }
     .d-day { display: none; }
     .time-boxes { display: flex; justify-content: center; gap: 16px; }
     .time-box { display: flex; flex-direction: column; }
     .time-num { font-size: 24px; font-weight: 600; color: #eeeeee; font-family: var(--font-sans); text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-    .time-label { font-size: 12px; color: #e4e0d9; text-transform: uppercase; letter-spacing: 1px; }
+    .time-label { font-size: 11px; color: #bdbcba; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-sans); }
     .countdown-text { font-size: 14px; color: var(--text-sub); }
 
     /* 달력 섹션 */
@@ -584,8 +584,12 @@
     </section>
 
     <section class="fade-up" style="padding: 0; border-bottom: none;">
+        
+       
         <img class="full-photo" src="img/ga1.jpg" alt="웨딩사진">
         <div class="countdown-wrap">
+            <p class="section-label" style="color: #c2c2c2;">D-DAY</p>
+             <h2 style="color: #dbdbdb;">결혼식까지</h2>
             <div class="d-day" id="d-day-text"></div>
             <div class="time-boxes">
                 <div class="time-box"><span class="time-num" id="cd-days">00</span><span class="time-label">Days</span></div>
