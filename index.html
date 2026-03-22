@@ -221,8 +221,8 @@
         padding: 16px;
         z-index: 2;
     }
-    .gallery-viewer-prev { left: 0; }
-    .gallery-viewer-next { right: 0; }
+    .gallery-viewer-prev { left: 10px; }
+    .gallery-viewer-next { right: 10px; }
     .gallery-viewer-prev:hover,
     .gallery-viewer-next:hover { color: rgba(255,255,255,0.8); }
     .gallery-viewer-bottom {
@@ -417,7 +417,7 @@
     .select-header.open { border-color: var(--point-color); background-color: #fdfcfa; }
     .select-options { position: absolute; top: 100%; left: 0; right: 0; background-color: #fff; border: 1px solid var(--line-color); border-top: none; border-radius: 0 0 8px 8px; max-height: 200px; overflow-y: auto; display: none; z-index: 10; }
     .select-options.open { display: block; border-radius: 8px;margin-top: 2px;}
-    .select-option { padding: 12px 12px; color: var(--text-main); font-family: var(--font-sans); font-size: 14px; cursor: pointer; transition: background-color 0.2s; }
+    .select-option { padding: 16px 12px; color: var(--text-main); font-family: var(--font-sans); font-size: 14px; cursor: pointer; transition: background-color 0.2s; min-height: 44px; display: flex; align-items: center; }
     .select-option:hover { background-color: #f5f5f5; }
     .select-option.selected { background-color: var(--point-color); color: #fff; font-weight: 500; }
 
@@ -1011,16 +1011,16 @@
     </div>
     <div class="form-group" id="meal-section">
         <label>식사 여부</label>
-        <div class="radio-group radio-horizontal">
-            <label class="radio-label">
+        <div class="radio-group radio-horizontal" style="row-gap: 8px;">
+            <label class="radio-label" style="margin-bottom: 0;">
                 <input type="radio" name="meal" value="식사 예정" checked>
                 <span>식사 예정</span>
             </label>
-            <label class="radio-label">
+            <label class="radio-label" style="margin-bottom: 0;">
                 <input type="radio" name="meal" value="식사 안 함">
                 <span>식사 안 함</span>
             </label>
-            <label class="radio-label">
+            <label class="radio-label" style="margin-bottom: 0;">
                 <input type="radio" name="meal" value="미정">
                 <span>미정</span>
             </label>
