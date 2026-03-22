@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wedding Invitation</title>
+<meta property="og:title" content="이성진 & 이현주 결혼식">
+<meta property="og:description" content="2026년 7월 11일 (토) 오후 12시 30분">
+<meta property="og:image" content="img/img01.png">
+<meta property="og:url" content="">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
@@ -16,6 +21,7 @@
     @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Medium.otf') format('opentype'); font-weight: 500; }
     @font-face { font-family: 'Gotham'; src: url('fonts/Gotham-Bold.otf') format('opentype'); font-weight: 700; }
     @font-face { font-family: 'Cafe24Oneprettynight'; src: url('fonts/Cafe24Oneprettynight-v2.0.otf') format('opentype'); font-weight: 400; }
+    @font-face { font-family: 'ZEN-SERIF'; src: url('fonts/ZEN-SERIF-TTF-Regular.ttf') format('truetype'); font-weight: 400; }
 
     /* ==========================================================================
        [1. CSS 변수 및 색상 정의]
@@ -66,15 +72,16 @@
     }
     section {
         padding: var(--section-py) var(--padding-x);
-        text-align: center;section-label
+        text-align: center;
         border-bottom: 1px solid var(--line-color);
     }
     section:last-child { border-bottom: none; }
+    #gifting { border-bottom: none; }
     h1 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; letter-spacing: 1px; }
-    .section-label { font-family: var(--font-sans); font-weight: 300; font-size: 13px; letter-spacing: 3px; color: var(--point-color); text-transform: uppercase; margin-bottom: 4px; }
-    h2 { font-family: 'Cafe24Oneprettynight', var(--font-serif); font-weight: 600; font-size: 20px; letter-spacing: 1px; color: var(--text-main); margin-bottom: 28px; }
+    .section-label { font-family: var(--font-sans); font-weight: 300; font-size: 13px; letter-spacing: 1.5px; color: var(--point-color); text-transform: uppercase; margin-bottom: 4px; }
+    h2 { font-family: 'ZEN-SERIF', var(--font-serif); font-weight: 400; font-size: 20px; letter-spacing: 1px; color: var(--text-main); margin-bottom: 28px; }
     #invitation .intro-text::after { content: ''; display: block; width: 40px; height: 1px; background-color: var(--point-color); margin: 44px auto 0; }
-    h3 { font-family: var(--font-serif); font-weight: 400; font-size: 16px; }
+    h3 { font-family: 'ZEN-SERIF', var(--font-serif); font-weight: 400; font-size: 16px; }
 
     /* ==========================================================================
        [3. UI 컴포넌트 스타일]
@@ -90,7 +97,7 @@
     /* 메인 커버 */
     .main-cover { width: 100%; padding: 0; position: relative; overflow: hidden; border-bottom: none; container-type: inline-size; }
     .main-cover-img { width: 100%; height: 100%; display: block; object-fit: cover; }
-    .cover-img05 { position: absolute; bottom: -2px; left: 0; right: 0; width: 100%; height: auto; }
+    .cover-img05 { position: absolute; bottom: -2px; left: var(--underline-left); right: 0; width: 100%; height: auto; }
     .cover-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 10% 16px 0; pointer-events: none; }
     .cover-overlay-top { display: flex; flex-direction: column; align-items: center; gap: clamp(6px, 2cqw, 14px); width: 100%; }
     .cover-overlay-bottom { text-align: center; }
@@ -111,11 +118,11 @@
     .parents-info strong { font-weight: 500; }
 
     /* 카운트다운 */
-    .countdown-wrap { position: absolute; gap:12%; top: 13%; left: 0; right: 0; z-index: 10; border-top: none; display: flex; flex-direction: column; align-items: center; }
+    .countdown-wrap { position: absolute; gap:12%; top: 0; width: 100%; right: 0; z-index: 10; border-top: none; display: flex; flex-direction: column; align-items: center; margin-top: 16%; }
     .d-day { display: none; }
     .time-boxes { display: flex; justify-content: center; gap: 16px; }
     .time-box { display: flex; flex-direction: column; }
-    .time-num { font-size: 24px; font-weight: 400; color: #eeeeee; font-family: var(--font-sans); text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .time-num { font-family: 'ZEN-SERIF', var(--font-serif); font-size: 24px; font-weight: 400; color: #eeeeee; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
     .time-label { font-size: 11px; color: #bdbcba; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-sans); }
     .countdown-text { font-size: 14px; color: var(--text-sub); }
 
@@ -213,7 +220,7 @@
         padding: 16px;
         z-index: 2;
     }
-    .gallery-viewer-prev { left: 0; }
+    .gallery-viewer-prev { left: var(--underline-left); }
     .gallery-viewer-next { right: 0; }
     .gallery-viewer-prev:hover,
     .gallery-viewer-next:hover { color: rgba(255,255,255,0.8); }
@@ -285,12 +292,44 @@
     .account-icon { margin-bottom: 24px; display: flex; justify-content: center; }
     .account-icon svg { width: 48px; height: 48px; stroke: var(--point-color); fill: none; stroke-width: 1.2; }
     .account-tabs-container { margin-top: 32px; }
-    .account-tabs { position: relative; display: inline-flex; width: 160px; margin: 0 auto 24px; background: #EBE9E6; border-radius: 25px; padding: 0; gap: 0; outline: 4px solid #EBE9E6; }
-    .account-tabs-bg { position: absolute; left: 0; top: 0; width: 80px; height: 100%; background: var(--text-main); border-radius: 25px; transition: left 0.3s ease; pointer-events: none; z-index: 0; }
-    .account-tab { position: relative; z-index: 1; padding: 10px 0; width: 80px; text-align: center; border: none; background: transparent; color: var(--text-sub); font-size: 14px; font-family: var(--font-sans); cursor: pointer; transition: color 0.3s; }
-    .account-tab.active { color: #fff; }
-    .account-content { display: none; margin-top: 16px; }
-    .account-content.active { display: block; }
+    .account-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--line-color);
+        margin-bottom: 24px;
+        position: relative;
+    }
+    .account-tabs::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        height: 2px;
+        background: var(--text-main);
+        transition: left 0.3s ease;
+        width: 50%;
+    }
+    .account-tabs.tab-1::after { left: 50%; }
+    .account-tabs-bg { display: none; }
+    .account-tab {
+        flex: 1;
+        padding: 14px 0;
+        font-size: 16px;
+        font-family: 'Nanum Square', var(--font-sans);
+        color: var(--text-sub);
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+    .account-tab.active {
+        color: var(--text-main);
+        font-weight: 500;
+    }
+    .account-content { display: none !important; margin-top: 16px; }
+    .account-content.active { display: block !important; }
     .account-group { margin-bottom: 12px; text-align: left; }
     .accordion-btn { width: 100%; padding: 16px 20px; background: #EBE9E6; border: none; border-radius: 12px; text-align: left; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); color: var(--text-main); font-weight: 400; }
     .accordion-btn .arrow { font-size: 13px; transition: transform 0.3s; color: var(--text-sub); }
@@ -305,27 +344,27 @@
     .account-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .account-info { font-size: 15px; color: var(--text-sub); line-height: 1.8; font-weight: 400; font-family: var(--font-sans);}
     .account-info .bank { color: #8A8A8A; font-size: 15px; }
-    .account-info .separator { color: #D5D5D5; margin: 0 8px; font-weight: 300; font-size: 15px; }
+    .account-info .separator { color: #D5D5D5; margin: 0 4px 2px; font-weight: 300; font-size: 14px;}
     .account-holder { font-size: 16px; color: var(--text-main); font-family: var(--font-sans); font-weight: 500; flex:1 0 auto; text-align: left;}
-    .copy-btn { padding: 8px 16px; background: transparent; color: var(--text-sub); border: 1px solid #b8b8b8; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: var(--font-sans); transition: all 0.2s; }
+    .copy-btn { padding: 6px 12px; background: transparent; color: var(--text-sub); border: 1px solid #b8b8b8; border-radius: 20px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: var(--font-sans); transition: all 0.2s; }
     .copy-btn:hover { opacity: 0.85; }
     .copy-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
     /* 푸터 */
-    .footer-section { padding: 0; text-align: center; }
-    .footer-image { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-    .footer-content { padding: 48px var(--padding-x) 40px; background: var(--bg-color); }
-    .footer-message { font-family: var(--font-serif); font-size: 16px; color: var(--text-main); line-height: 2; margin-bottom: 36px; font-weight: 300; }
-    .share-buttons { display: flex; flex-direction: column; gap: 10px; max-width: 260px; margin: 0 auto 40px; }
-    .share-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border: 1px solid var(--line-color); border-radius: 8px; background: #fff; font-size: 14px; font-family: var(--font-sans); color: var(--text-main); cursor: pointer; transition: background 0.2s; }
-    .share-btn:hover { background: #F7F6F4; }
+    .footer-section { padding: 0; text-align: center; border-radius: 250px 250px 0 0; overflow: hidden; position: relative; }
+    .footer-image { width: 100%; height: auto; display: block; object-fit: cover; object-position: center 30%; }
+    .footer-content { position: relative; top: 0; left: 0; width: 100%; height: auto; padding: 0; display: flex; flex-direction: column; align-items: center; }
+    .footer-message { font-family: 'Nanum Square', var(--font-sans); font-size: 16px; color: #fff; line-height: 2; margin-bottom: 36px; font-weight: 400; display: flex; flex-direction: column; align-items: center;}
+    .share-buttons { display: flex; flex-direction: column; gap: 10px; max-width: 260px; margin: 60px auto 80px; position: relative; }
+    .share-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border: 1px solid var(--line-color); border-radius: 8px; background: transparent; font-size: 15px; font-family: var(--font-sans); color: var(--text-main); cursor: pointer; transition: all 0.3s; }
+    .share-btn:hover { background: rgba(0, 0, 0, 0.02); }
     .share-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
     .share-btn .kakao-icon { width: 20px; height: 20px; background: #3C1E1E; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
     .share-btn .kakao-icon span { color: #fff; font-size: 9px; font-weight: 700; letter-spacing: -0.5px; }
-    .footer-copyright { font-size: 11px; color: var(--text-sub); letter-spacing: 1px; font-family: var(--font-sans); }
+    
 
     /* 모달 공통 */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 100; }
+    .modal-overlay { position: fixed; top: 0; left: var(--underline-left); width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 100; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); opacity: 0; visibility: hidden; width: calc(100% - 40px); max-width: 420px; background: #fff; padding: 32px 24px; border-radius: 16px; transition: 0.3s ease-out; z-index: 101; text-align: left; max-height: 90vh; overflow-y: auto; }
     .modal-content.active { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
@@ -351,11 +390,35 @@
     .form-group select {
         cursor: pointer;
         appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%234A3F35' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
-        background-position: right 12px center;
-        padding-right: 36px;
+        background-position: right 14px center;
+        background-color: #fff;
+        padding-right: 40px;
+        font-weight: 400;
+        color-scheme: light;
     }
+    .form-group select option {
+        padding: 12px;
+        background-color: #fff;
+        color: var(--text-main);
+        font-family: var(--font-sans);
+        font-size: 14px;
+    }
+
+    /* 커스텀 셀렉트 */
+    .custom-select { position: relative; width: 100%; }
+    .select-header { width: 100%; padding: 14px 12px; border: 1px solid var(--line-color); border-radius: 8px; background-color: #fff; color: var(--text-main); font-family: var(--font-sans); font-size: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.2s, background-color 0.2s; }
+    .select-header::after { content: '▼'; font-size: 10px; color: var(--text-main); }
+    .select-header:hover { border-color: var(--point-color); }
+    .select-header.open { border-color: var(--point-color); background-color: #fdfcfa; }
+    .select-options { position: absolute; top: 100%; left: 0; right: 0; background-color: #fff; border: 1px solid var(--line-color); border-top: none; border-radius: 0 0 8px 8px; max-height: 200px; overflow-y: auto; display: none; z-index: 10; }
+    .select-options.open { display: block; border-radius: 8px;margin-top: 2px;}
+    .select-option { padding: 12px 12px; color: var(--text-main); font-family: var(--font-sans); font-size: 14px; cursor: pointer; transition: background-color 0.2s; }
+    .select-option:hover { background-color: #f5f5f5; }
+    .select-option.selected { background-color: var(--point-color); color: #fff; font-weight: 500; }
 
     /* 라디오 버튼 그룹 */
     .radio-group {
@@ -382,6 +445,7 @@
         border-radius: 8px;
         transition: all 0.2s;
         background-color: #fff;
+        text-align: center;
     }
     .radio-label:hover {
         background-color: #fdfcfa;
@@ -411,7 +475,8 @@
     /* 리마인드 */
     .remind-label { font-family: var(--font-sans); font-weight: 300; font-size: 14px; letter-spacing: 3px; color: var(--point-color); text-transform: uppercase; margin-bottom: 4px; }
     .remind-desc { font-size: 16px; color: var(--text-sub); line-height: 1.8; margin: 0 0 32px; font-weight: 400; }
-    .remind-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border: 1px solid var(--point-color); border-radius: 40px; background: transparent; color: var(--point-color); font-size: 15px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; }
+    .remind-btn { display: flex; align-items: center; gap: 8px; padding: 14px 28px; border: 1px solid var(--line-color); border-radius: 40px; background: transparent; color: var(--text-main); font-size: 15px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; justify-content: center; width: fit-content; margin: 0 auto; }
+    .remind-btn svg { flex-shrink: 0; }
     .remind-btn:hover { background: #4a3f35; color: #fff; }
     .remind-modal-desc { font-size: 13px; color: var(--text-sub); line-height: 1.9; text-align: center; margin-bottom: 24px; }
     .remind-privacy { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sub); margin: 16px 0; cursor: pointer; }
@@ -495,19 +560,20 @@
         position: relative;
         width: 100%;
         height: auto;
-        
-        padding: 20px;
+    
        
     }
-    .full-photo { width: 100%; height: auto; display: block; object-fit: cover; border-radius: 20px; overflow: hidden;}
+    .full-photo { width: 100%; height: auto; position: relative; overflow: hidden;}
+    .full-photo img { width: 100%; height: auto; display: block; object-fit: cover; }
     .photo-gradient {
         position: absolute;
         top: 0;
-        left: 0;
+        left: var(--underline-left);
         width: 100%;
-        height: 40%;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+        height: 60%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
         pointer-events: none;
+        padding : 0 24px;
     }
 
     /* 토스트 팝업 */
@@ -600,6 +666,10 @@
     </section>
 
     <section class="calendar-section fade-up">
+        <svg width="28" height="auto" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="gsap-rotate"
+                    style="translate: none; rotate: none; scale: none; position:absolute; left: 50%; top:-50%;">
+                    <path d="M5.5 20C15.9459 20 20.5 15.6051 20.5 5C20.5 15.6051 25.0223 20 35.5 20C25.0223 20 20.5 24.5223 20.5 35C20.5 24.5223 15.9459 20 5.5 20Z"
+                    fill="#b3b0ab" stroke="#b3b0ab" stroke-width="1.66667" stroke-linejoin="round"></path></svg>
         <p class="section-label">CALENDAR</p>
         <h2>2026년 7월 11일 토요일</h2>
         <div class="calendar-info">
@@ -659,16 +729,22 @@
     <section class="fade-up" style="padding: 0; border-bottom: none;">
 
         <div class="photo-wrapper">
-            <img class="full-photo" src="img/ga1.jpg" alt="웨딩사진">
-            <div class="photo-gradient"></div>
+            <div class="full-photo">
+                <img src="img/ga1.jpg" alt="웨딩사진">
+                <div class="photo-gradient"></div>
+            </div>
         </div>
+
+
+
+
         <div class="countdown-wrap">
             <div class="header">
                 <p class="section-label" style="color: #c2c2c2;">D-DAY</p>
-                 <h2 style="color: #dbdbdb; margin-bottom: 0;">결혼식까지</h2>
+                 
             </div>
             <div class="d-day" id="d-day-text"></div>
-            <div class="time-boxes" style="width:100%; margin-top:5%;">
+            <div class="time-boxes" style="width:100%; margin:2% 0 7%;">
                 <div class="time-box"><span class="time-num" id="cd-days">00</span><span class="time-label">Days</span></div>
                 <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
                 <div class="time-box"><span class="time-num" id="cd-hours">00</span><span class="time-label">Hour</span></div>
@@ -677,6 +753,7 @@
                 <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
                 <div class="time-box"><span class="time-num" id="cd-secs">00</span><span class="time-label">Sec</span></div>
             </div>
+            <h2 style="color: #dbdbdb; margin-bottom: 0; font-family: 'Nanum Square', var(--font-sans); font-weight: 400; font-size: 14px;">SUNG JIN 🤍 HYUN JU</h2>
         </div>
     </section>
 
@@ -785,7 +862,7 @@
         </button>
     </section>
 
-    <section class="fade-up">
+    <section id="gifting" class="fade-up" style="padding-bottom: 120px;">
 
         <p class="section-label">WITH LOVE</p>
         <h2>마음 전하실 곳</h2>
@@ -806,7 +883,7 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">이성진</span>
-                            <span class="account-info"><span class="bank">신한</span><span class="separator">|</span>110-499-348765</span>
+                            <span class="account-info"><span class="bank">신한은행</span><span class="separator">I</span>110-499-348765</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('110499348765')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
@@ -815,7 +892,7 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">이재광</span>
-                            <span class="account-info"><span class="bank">우리</span><span class="separator">|</span>1002-149-439431</span>
+                            <span class="account-info"><span class="bank">우리은행</span><span class="separator">I</span>1002-149-439431</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('10021494394311')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
@@ -824,7 +901,7 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">신영섭</span>
-                            <span class="account-info"><span class="bank">하나</span><span class="separator">|</span>34691081134707</span>
+                            <span class="account-info"><span class="bank">하나은행</span><span class="separator">I</span>346-910811-34-707</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('34691081134707')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
@@ -836,7 +913,7 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">이현주</span>
-                            <span class="account-info"><span class="bank">국민</span><span class="separator">|</span>613802-01-368046</span>
+                            <span class="account-info"><span class="bank">국민</span><span class="separator">I</span>613802-01-368046</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('61380201368046')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
@@ -845,7 +922,7 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">이재복</span>
-                            <span class="account-info"><span class="bank">은행</span><span class="separator">|</span>계좌번호</span>
+                            <span class="account-info"><span class="bank">은행</span><span class="separator">I</span>계좌번호</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
@@ -854,9 +931,9 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">김선희</span>
-                            <span class="account-info"><span class="bank">은행</span><span class="separator">|</span>계좌번호</span>
+                            <span class="account-info"><span class="bank">농협은행</span><span class="separator">I</span>586-01-005294</span>
                         </div>
-                        <button class="copy-btn" onclick="copyToClipboard('')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
+                        <button class="copy-btn" onclick="copyToClipboard('58601005294')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
                 </div>
             </div>
@@ -865,24 +942,32 @@
 
     <!-- 푸터 -->
     <div class="footer-section">
-        <img src="img/last.jpg" alt="Wedding" class="footer-image">
         <div class="footer-content">
-            <p class="footer-message">
-                응원하고 격려해주신 모든 분들께 감사드리며<br>
-                행복하게 잘 살겠습니다.
-            </p>
-            <div class="share-buttons">
+            <img src="img/last.jpg" alt="Wedding" class="footer-image">
+            <div class="photo-gradient"></div>
+                <div class="footer-message" style=" width: 100%; font-size: 16px; color: var(--line-color); margin-bottom: 20px; line-height: 1.8; font-weight: 400; position: absolute; top: 7%; left: 50%; transform: translateX(-50%);">
+                    <svg width="28" height="auto" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="gsap-rotate"
+                    style="translate: none; rotate: none; scale: none; margin-bottom: 4%;">
+                    <path d="M5.5 20C15.9459 20 20.5 15.6051 20.5 5C20.5 15.6051 25.0223 20 35.5 20C25.0223 20 20.5 24.5223 20.5 35C20.5 24.5223 15.9459 20 5.5 20Z"
+                    fill="var(--line-color)" stroke="var(--line-color)" stroke-width="1.66667" stroke-linejoin="round"></path></svg>
+                    <div class="section-label" style="color: var(--line-color); opacity: 0.8; margin-bottom: 2%;">GRATEFULLY YOURS</div>
+                    응원해주신 모든 분들께 감사드리며,<br>
+                    함께 웃으며 살아가겠습니다.
+                </div> 
+        </div>
+    </div>
+
+    <div class="share-buttons">
                 <button class="share-btn" onclick="shareKakao()">
-                    <span class="kakao-icon"><span>TALK</span></span>
+                    <svg width="20" height="20" viewBox="0 0 218 217" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M105.621 0.0160425C112.348 -0.0807547 118.158 0.26139 124.846 1.01799C175.696 6.77083 223.799 48.1518 217.111 103.034C214.247 126.537 201.262 146.835 182.799 161.408C161.889 177.913 135.538 186.091 109.023 186.124C101.859 186.138 95.8884 185.485 88.8332 184.652C86.9888 185.63 81.2498 190.067 79.2414 191.564L58.0324 207.123C54.5692 209.668 51.1007 212.301 47.5871 214.738C43.3477 217.758 41.0968 216.067 42.009 211.08C42.9957 205.686 44.4335 200.292 45.7775 194.977C47.6932 187.399 49.3525 179.699 51.466 172.189C43.6841 168.507 35.6949 162.367 29.3088 156.725C-7.27291 124.377 -10.1951 70.1311 23.842 34.7045C45.8937 11.7528 74.2433 1.29402 105.621 0.0160425ZM71.8459 72.0092C70.249 69.3374 54.231 71.1124 50.9484 70.7191C50.7595 70.6984 49.7373 70.7672 49.5011 70.7865C45.5042 71.0545 41.382 70.7802 37.3693 70.934C35.762 70.9957 33.0974 70.9312 31.5861 71.4994C27.8908 72.889 27.2747 79.332 30.2512 81.723C32.9589 83.8979 37.1622 83.0511 40.4113 83.1781C41.8892 83.2281 43.4105 83.161 44.842 83.1527L44.8137 108.202C44.8086 112.449 44.6908 116.753 44.9553 120.986C45.1255 123.711 48.4424 124.482 50.6701 124.42C51.0045 124.409 51.3392 124.388 51.672 124.356C55.0365 123.759 56.7391 123.063 56.8468 119.371C56.9653 115.304 56.9247 111.248 56.924 107.18L56.9133 81.93C60.4443 81.9268 79.3799 84.6249 71.8459 72.0092ZM154.4 70.6293C153.887 70.6375 153.374 70.6532 152.861 70.6761C151.49 71.0261 149.571 71.5451 148.871 72.9359C148.139 74.3967 148.455 117.546 148.652 122.087C150.843 123.793 152.954 124.411 155.741 124.095C157.049 123.947 158.866 123.449 159.747 122.391C161.199 120.647 160.36 108.224 160.373 105.305C161.393 104.499 162.663 103.551 163.582 102.664L173.578 116.339C175.248 118.622 176.941 121.114 178.807 123.195C180.555 125.144 184.241 123.661 185.878 122.293C188.147 120.398 189.969 117.863 187.905 115.123C184.755 110.864 181.565 106.633 178.337 102.431C176.72 100.306 174.053 96.5841 172.308 94.8265C175.755 91.3253 179.144 87.7676 182.474 84.1547C183.962 82.5705 186.187 80.3757 187.46 78.7035C189.566 75.9375 182.344 68.5446 179.41 71.2621C172.855 77.334 166.84 84.1554 160.301 90.2425C160.695 85.1927 160.732 80.312 160.554 75.2494C160.414 71.2569 157.997 70.577 154.4 70.6293ZM95.3527 75.5433C93.3279 70.4993 89.5719 70.3445 84.6691 70.6908C81.9691 71.7892 81.1739 72.3852 80.0832 75.1273C75.0137 87.8761 70.6336 100.893 65.6261 113.666C65.0014 115.678 63.601 118.108 64.3195 120.204C65.3397 123.181 70.2689 124.808 72.9386 123.757C75.494 122.75 76.6999 116.181 77.2902 113.655L90.7404 113.673L97.757 113.657C98.0305 116.233 99.2764 121.521 101.378 123.234C102.581 124.213 104.469 124.152 105.933 123.933C107.677 123.659 109.239 122.7 110.275 121.27C112.003 118.871 110.816 116.569 109.858 114.038C105.004 101.22 100.475 88.2544 95.3527 75.5433ZM127.058 74.2816C124.893 70.6279 123.058 70.4977 119 70.6654C116.711 71.4929 114.508 72.846 114.584 75.5765C115.001 90.4293 113.985 105.988 114.665 120.776C115.41 121.991 116.187 123.462 117.683 123.692C120.442 124.114 123.838 123.956 126.662 123.95L142.417 123.904C147.403 122.599 147.014 115.82 143.869 112.632C139.08 111.878 132.134 112.118 127.134 112.138C127.142 100.181 127.489 86.0643 127.058 74.2816ZM87.6125 84.2884C88.3091 84.7554 88.7333 86.7358 89.0246 87.6537C90.6348 92.7303 92.2213 97.8145 93.8507 102.885L87.3029 102.878L81.0978 102.874C81.9423 101.109 82.9528 97.8952 83.6213 95.9671C84.9835 92.0854 86.3145 88.1919 87.6125 84.2884Z" fill="#3C1E1E"/>
+                    </svg>
                     카카오톡 공유하기
                 </button>
                 <button class="share-btn" onclick="copyLink()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                     링크주소 복사하기
                 </button>
-            </div>
-            <p class="footer-copyright">Copyright 2026. <strong>FROM TODAY.</strong> All rights reserved.</p>
-        </div>
     </div>
 
 </div>
@@ -912,14 +997,18 @@
     </div>
     <div class="form-group">
         <label>동행 인원 (본인 포함)</label>
-        <select id="rsvp-guests">
-            <option>1명</option>
-            <option>2명</option>
-            <option>3명 이상</option>
-            <option>참석이 어렵습니다 (마음만 전할게요)</option>
-        </select>
+        <div class="custom-select" id="custom-select-guests">
+            <div class="select-header">1명</div>
+            <div class="select-options">
+                <div class="select-option" data-value="1명">1명</div>
+                <div class="select-option" data-value="2명">2명</div>
+                <div class="select-option" data-value="3명 이상">3명 이상</div>
+                <div class="select-option" data-value="참석이 어렵습니다 (마음만 전할게요)">참석이 어렵습니다 (마음만 전할게요)</div>
+            </div>
+        </div>
+        <input type="hidden" id="rsvp-guests" value="1명">
     </div>
-    <div class="form-group">
+    <div class="form-group" id="meal-section">
         <label>식사 여부</label>
         <div class="radio-group radio-horizontal">
             <label class="radio-label">
@@ -977,7 +1066,7 @@
     </div>
 </div>
 
-<div class="toast" id="toastMsg">계좌번호가 복사되었습니다.</div>
+<div class="toast" id="toastMsg">링크가 복사되었습니다.</div>
 
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=cb6c5bd1b3dba099a9eb93d712a6aeff"></script>
 <script>
@@ -1063,14 +1152,16 @@
     }
 
     function switchAccountTab(idx) {
+        const tabsContainer = document.querySelector(".account-tabs");
+        tabsContainer.classList.remove("tab-0", "tab-1");
+        tabsContainer.classList.add("tab-" + idx);
+        
         document.querySelectorAll('.account-tab').forEach((tab, i) => {
             tab.classList.toggle('active', i === idx);
         });
         document.querySelectorAll('.account-content').forEach((content, i) => {
             content.classList.toggle('active', i === idx);
         });
-        const bg = document.querySelector('.account-tabs-bg');
-        bg.style.left = (idx * 80) + 'px';
     }
 
     // 2-2. 네이버 지도 열기
@@ -1207,7 +1298,12 @@
         }
 
         const side = document.querySelector('input[name="side"]:checked').value;
-        const meal = document.querySelector('input[name="meal"]:checked').value;
+        let meal = document.querySelector('input[name="meal"]:checked').value;
+
+        // 참석이 어렵습니다 선택시 식사 안 함으로 표기
+        if (guests === '참석이 어렵습니다 (마음만 전할게요)') {
+            meal = '식사 안 함';
+        }
 
         const btn = document.getElementById('rsvp-submit-btn');
         btn.disabled = true;
@@ -1260,6 +1356,46 @@
         });
     }
 
+    // 커스텀 셀렉트
+    document.addEventListener('DOMContentLoaded', () => {
+        const customSelect = document.getElementById('custom-select-guests');
+        const selectHeader = customSelect.querySelector('.select-header');
+        const selectOptions = customSelect.querySelector('.select-options');
+        const selectOption = customSelect.querySelectorAll('.select-option');
+        const hiddenInput = document.getElementById('rsvp-guests');
+
+        selectHeader.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectHeader.classList.toggle('open');
+            selectOptions.classList.toggle('open');
+        });
+
+        selectOption.forEach(option => {
+            option.addEventListener('click', (e) => {
+                const value = option.getAttribute('data-value');
+                selectHeader.textContent = value;
+                hiddenInput.value = value;
+                selectHeader.classList.remove('open');
+                selectOptions.classList.remove('open');
+                selectOption.forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+
+                // 참석이 어렵습니다 선택시 식사 여부 숨김
+                const mealSection = document.getElementById('meal-section');
+                if (value === '참석이 어렵습니다 (마음만 전할게요)') {
+                    mealSection.style.display = 'none';
+                } else {
+                    mealSection.style.display = 'block';
+                }
+            });
+        });
+
+        document.addEventListener('click', () => {
+            selectHeader.classList.remove('open');
+            selectOptions.classList.remove('open');
+        });
+    });
+
     // 공유 기능
     function shareKakao() {
         if (window.Kakao && Kakao.isInitialized()) {
@@ -1309,6 +1445,9 @@
         document.getElementById('cd-secs').innerText = String(seconds).padStart(2, '0');
     }
     updateCountdown();
+    // Initialize account tabs
+    document.querySelector(".account-tabs").classList.add("tab-0");
+
     setInterval(updateCountdown, 1000);
 </script>
 
