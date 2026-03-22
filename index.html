@@ -6,7 +6,7 @@
 <title>Wedding Invitation</title>
 <meta property="og:title" content="7월 11일 (토) 오후 12시 30분">
 <meta property="og:description" content="양재 라시따시어터 1층">
-<meta property="og:image" content="https://wedding-2026-07-11.vercel.app/img/kakao2.png">
+<meta property="og:image" content="https://wedding-2026-07-11.vercel.app/img/kakao.png">
 <meta property="og:url" content="https://wedding-2026-07-11.vercel.app">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1011,7 +1011,7 @@
     </div>
     <div class="form-group" id="meal-section">
         <label>식사 여부</label>
-        <div class="radio-group radio-horizontal" style="margin-padding: 14px;">
+        <div class="radio-group radio-horizontal" style="margin: 14px;">
             <label class="radio-label">
                 <input type="radio" name="meal" value="식사 예정" checked>
                 <span>식사 예정</span>
@@ -1413,15 +1413,32 @@
         }
 
         try {
-            Kakao.Link.sendDefault({
-                objectType: 'feed',
-                webUrl: shareUrl,
-                mobileWebUrl: shareUrl
-            });
-        } catch (e) {
-            console.error('카카오 공유 오류:', e);
-            alert('공유에 실패했습니다. 다시 시도해주세요.');
-        }
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '이성진 ♥ 이현주 결혼합니다', // 카톡 말풍선 굵은 제목
+                description: '7월 11일 (토) 오후 12시 30분\n양재 라시따시어터 1층',
+                // ★ 카톡 공유 버튼용으로 띄울 정사각형(1:1) 이미지 경로 ★
+                imageUrl: 'https://wedding-2026-07-11.vercel.app/img/kakao2.png',
+                link: {
+                    mobileWebUrl: shareUrl,
+                    webUrl: shareUrl
+                }
+            },
+            buttons: [
+                {
+                    title: '모바일 청첩장 보기',
+                    link: {
+                        mobileWebUrl: shareUrl,
+                        webUrl: shareUrl
+                    }
+                }
+            ]
+        });
+    } catch (e) {
+        console.error('카카오 공유 오류:', e);
+        alert('공유에 실패했습니다. 다시 시도해주세요.');
+    }
     }
 
     function copyLink() {
