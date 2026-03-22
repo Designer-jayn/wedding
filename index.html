@@ -666,8 +666,8 @@
     </section>
 
     <section class="calendar-section fade-up">
-        <svg width="28" height="auto" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="gsap-rotate"
-                    style="translate: none; rotate: none; scale: none; position:absolute; left: 50%; top:-50%;">
+        <svg width="28" height="28" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="gsap-rotate"
+                    style="translate: none; rotate: none; scale: none; position:absolute; left: 50%; top:-14; transform: translateX(-50%);">
                     <path d="M5.5 20C15.9459 20 20.5 15.6051 20.5 5C20.5 15.6051 25.0223 20 35.5 20C25.0223 20 20.5 24.5223 20.5 35C20.5 24.5223 15.9459 20 5.5 20Z"
                     fill="#b3b0ab" stroke="#b3b0ab" stroke-width="1.66667" stroke-linejoin="round"></path></svg>
         <p class="section-label">CALENDAR</p>
@@ -894,7 +894,7 @@
                             <span class="account-holder">이재광</span>
                             <span class="account-info"><span class="bank">우리은행</span><span class="separator">I</span>1002-149-439431</span>
                         </div>
-                        <button class="copy-btn" onclick="copyToClipboard('10021494394311')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
+                        <button class="copy-btn" onclick="copyToClipboard('1002149439431')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
                 </div>
                 <div class="account-item">
@@ -924,7 +924,7 @@
                             <span class="account-holder">이재복</span>
                             <span class="account-info"><span class="bank">농협은행</span><span class="separator">I</span>352-2355-3117-33</span>
                         </div>
-                        <button class="copy-btn" onclick="copyToClipboard('')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
+                        <button class="copy-btn" onclick="copyToClipboard('3522355311733')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
                 </div>
                 <div class="account-item">
@@ -1043,10 +1043,10 @@
     </div>
     <div class="form-group">
         <label>전화번호</label>
-        <input type="tel" id="remind-phone" placeholder="010-0000-0000">
+        <input type="tel" id="remind-phone" placeholder="010-0000-0000" value="010">
     </div>
     <label class="remind-privacy">
-        <input type="checkbox" id="remind-agree">
+        <input type="checkbox" id="remind-agree" checked>
         개인정보 수집·이용에 동의합니다 (리마인드 발송 목적으로만 사용)
     </label>
     <button class="btn btn-solid" id="remind-submit-btn" onclick="submitRemind()">
@@ -1228,7 +1228,7 @@
         btn.disabled = true;
         btn.textContent = '신청 중...';
 
-        fetch(SCRIPT_URL, {
+        fetch(REMIND_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain' },
@@ -1280,6 +1280,8 @@
 
     // 3-1. RSVP 제출
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2_skRv-1xeHnZbwcHPWHheYpbMnTeQMAa2TNaeQFnJyEgkEUkCX5ldffaOsoiMEV-/exec';
+    // 3-2. 리마인드 알림
+    const REMIND_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKd0nT8d819Gomv6k9YePpaYjzs9Vv0UNc4lN2NFwitBmsdmxD34l88slelMAxQ0oXag/exec';
 
     function submitRSVP() {
         const name = document.getElementById('rsvp-name').value.trim();
