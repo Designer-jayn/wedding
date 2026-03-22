@@ -371,7 +371,7 @@
     .modal-content.active { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
     .modal-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 24px; cursor: pointer; }
     .form-group { margin-bottom: 24px;}
-    .form-group label { display: block; font-size: 13px; color: var(--text-main); font-weight: 500;}
+    .form-group label { display: block; font-size: 13px; color: var(--text-main); font-weight: 500; margin-bottom: 12px;}
     .form-group input, .form-group select {
         width: 100%;
         padding: 14px 12px;
@@ -479,7 +479,7 @@
     .remind-btn { display: flex; align-items: center; gap: 8px; padding: 14px 28px; border: 1px solid var(--line-color); border-radius: 40px; background: transparent; color: var(--text-main); font-size: 15px; font-family: var(--font-sans); cursor: pointer; transition: all 0.2s; justify-content: center; width: fit-content; margin: 0 auto; }
     .remind-btn svg { flex-shrink: 0; }
     .remind-btn:hover { background: #4a3f35; color: #fff; }
-    .remind-modal-desc { font-size: 13px; color: var(--text-sub); line-height: 1.9; text-align: center; margin-bottom: 24px; }
+    .remind-modal-desc { font-size: 14px; color: var(--text-sub); line-height: 1.9; text-align: center; margin-bottom: 24px; }
     .remind-privacy { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-sub); margin: 16px 0; cursor: pointer; }
     .remind-privacy input { accent-color: var(--point-color); width: 15px; height: 15px; cursor: pointer; }
 
@@ -985,12 +985,12 @@
     </div>
     <div class="form-group">
         <label>구분</label>
-        <div class="radio-group radio-horizontal" style="margin: 0 0 10px 0;">
-            <label class="radio-label">
+        <div class="radio-group radio-horizontal">
+            <label class="radio-label" style="margin-bottom: 0;">
                 <input type="radio" name="side" value="신랑측" checked>
                 <span>신랑측 하객</span>
             </label>
-            <label class="radio-label">
+            <label class="radio-label" style="margin-bottom: 0;">
                 <input type="radio" name="side" value="신부측">
                 <span>신부측 하객</span>
             </label>
@@ -1011,7 +1011,7 @@
     </div>
     <div class="form-group" id="meal-section">
         <label>식사 여부</label>
-        <div class="radio-group radio-horizontal" style="margin: 14px;">
+        <div class="radio-group radio-horizontal">
             <label class="radio-label">
                 <input type="radio" name="meal" value="식사 예정" checked>
                 <span>식사 예정</span>
