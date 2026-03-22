@@ -118,7 +118,7 @@
     .parents-info strong { font-weight: 500; }
 
     /* 카운트다운 */
-    .countdown-wrap { position: absolute; gap:12%; top: 0; width: 100%; right: 0; z-index: 10; border-top: none; display: flex; flex-direction: column; align-items: center; margin-top: 16%; }
+    .countdown-wrap { position: absolute; gap:4px; top: 0; width: 100%; height: 100%; right: 0; z-index: 10; border-top: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .d-day { display: none; }
     .time-boxes { display: flex; justify-content: center; gap: 16px; }
     .time-box { display: flex; flex-direction: column; }
@@ -731,7 +731,7 @@
         <div class="photo-wrapper">
             <div class="full-photo">
                 <img src="img/ga1.jpg" alt="웨딩사진">
-                <div class="photo-gradient"></div>
+                <div class="photo-gradient" style="height: 100%; width: 100; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));"></div>
             </div>
         </div>
 
@@ -744,7 +744,7 @@
                  
             </div>
             <div class="d-day" id="d-day-text"></div>
-            <div class="time-boxes" style="width:100%; margin:2% 0 7%;">
+            <div class="time-boxes" style="width:100%;">
                 <div class="time-box"><span class="time-num" id="cd-days">00</span><span class="time-label">Days</span></div>
                 <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
                 <div class="time-box"><span class="time-num" id="cd-hours">00</span><span class="time-label">Hour</span></div>
@@ -753,7 +753,7 @@
                 <div class="time-box"><span class="time-num">:</span><span class="time-label">&nbsp;</span></div>
                 <div class="time-box"><span class="time-num" id="cd-secs">00</span><span class="time-label">Sec</span></div>
             </div>
-            <h2 style="color: #dbdbdb; margin-bottom: 0; font-family: 'Nanum Square', var(--font-sans); font-weight: 400; font-size: 15px; line-height: 1.8;">SUNG JIN 🤍 HYUN JU</h2>
+            <!-- <h2 style="color: #dbdbdb; margin-bottom: 0; font-family: 'Nanum Square', var(--font-sans); font-weight: 400; font-size: 15px; line-height: 1.8;">SUNG JIN 🤍 HYUN JU</h2> -->
         </div>
     </section>
 
@@ -922,7 +922,7 @@
                     <div class="account-header">
                         <div>
                             <span class="account-holder">이재복</span>
-                            <span class="account-info"><span class="bank">은행</span><span class="separator">I</span>계좌번호</span>
+                            <span class="account-info"><span class="bank">농협은행</span><span class="separator">I</span>352-2355-3117-33</span>
                         </div>
                         <button class="copy-btn" onclick="copyToClipboard('')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 복사</button>
                     </div>
@@ -945,7 +945,7 @@
         <div class="footer-content">
             <img src="img/last.jpg" alt="Wedding" class="footer-image">
             <div class="photo-gradient"></div>
-                <div class="footer-message" style=" width: 100%; font-size: 15px; color: var(--line-color); margin-bottom: 20px; line-height: 1.8; font-weight: 400; position: absolute; top: 7%; left: 50%; transform: translateX(-50%);">
+                <div class="footer-message" style=" width: 100%; font-size: 15px; color: var(--line-color); margin-bottom: 20px; line-height: 1.8; font-weight: 400; position: absolute; left: 50%; transform: translateX(-50%); margin-top: 18%;">
                     <svg width="6%" height="auto" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="gsap-rotate"
                     style="translate: none; rotate: none; scale: none; margin-bottom: 4%;">
                     <path d="M5.5 20C15.9459 20 20.5 15.6051 20.5 5C20.5 15.6051 25.0223 20 35.5 20C25.0223 20 20.5 24.5223 20.5 35C20.5 24.5223 15.9459 20 5.5 20Z"
