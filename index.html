@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wedding Invitation</title>
-<meta property="og:title" content="이재경 · 이민주 결혼합니다">
-<meta property="og:description" content="7월 11일 (토) 오후 12시 30분 양재 라시따시어터 1층">
+<meta property="og:title" content="7월 11일 (토) 오후 12시 30분">
+<meta property="og:description" content="양재 라시따시어터 1층">
 <meta property="og:image" content="https://wedding-2026-07-11.vercel.app/img/kakao2.png">
 <meta property="og:url" content="https://wedding-2026-07-11.vercel.app">
 <meta property="og:type" content="website">
@@ -1413,26 +1413,9 @@
         }
 
         try {
-            Kakao.Share.sendDefault({
-                objectType: 'feed',
-                content: {
-                    title: '7월 11일 (토) 오후 12시 30분',
-                    description: '양재 라시따시어터 1층',
-                    imageUrl: 'https://wedding-2026-07-11.vercel.app/img/kakao2.png',
-                    link: {
-                        mobileWebUrl: shareUrl,
-                        webUrl: shareUrl
-                    }
-                },
-                buttons: [
-                    {
-                        title: '청첩장 보기',
-                        link: {
-                            mobileWebUrl: shareUrl,
-                            webUrl: shareUrl
-                        }
-                    }
-                ]
+            Kakao.Link.sendDefault({
+                webUrl: shareUrl,
+                mobileWebUrl: shareUrl
             });
         } catch (e) {
             console.error('카카오 공유 오류:', e);
