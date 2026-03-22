@@ -221,7 +221,7 @@
         padding: 16px;
         z-index: 2;
     }
-    .gallery-viewer-prev { left: var(--underline-left); }
+    .gallery-viewer-prev { left: 0; }
     .gallery-viewer-next { right: 0; }
     .gallery-viewer-prev:hover,
     .gallery-viewer-next:hover { color: rgba(255,255,255,0.8); }
@@ -1067,7 +1067,7 @@
     </div>
 </div>
 
-<div class="toast" id="toastMsg">링크가 복사되었습니다.</div>
+<div class="toast" id="toastMsg"></div>
 
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=cb6c5bd1b3dba099a9eb93d712a6aeff"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -1356,6 +1356,7 @@
     function copyToClipboard(val) {
         navigator.clipboard.writeText(val).then(() => {
             const toast = document.getElementById('toastMsg');
+            toast.textContent = '계좌번호가 복사되었습니다.';
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
@@ -1419,7 +1420,7 @@
                 title: '이성진 🖤 이현주 결혼합니다', // 카톡 말풍선 굵은 제목
                 description: '7월 11일 (토) 오후 12시 30분\n양재 라시따시어터 1층',
                 // ★ 카톡 공유 버튼용으로 띄울 정사각형(1:1) 이미지 경로 ★
-                imageUrl: 'https://wedding-2026-07-11.vercel.app/img/kakao2.png',
+                imageUrl: 'https://wedding-2026-07-11.vercel.app/img/kakao2.png?t=20260322120000',
                 link: {
                     mobileWebUrl: shareUrl,
                     webUrl: shareUrl
