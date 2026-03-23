@@ -80,46 +80,13 @@
             margin-bottom: 20px;
         }
 
-        .intro-text {
-            font-family: var(--font-sans);
-            font-size: 15px;
-            line-height: 1.8;
-            margin-bottom: 40px;
-            color: var(--text-sub);
-            font-weight: 400;
-        }
-
-        .intro-text::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 1px;
-            background-color: var(--point-color);
-            margin: 44px auto 0;
-        }
-
-        /* 메인 이미지 */
-        .main-cover {
-            width: 100%;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            border-bottom: none;
-        }
-
-        .main-cover img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
+        /* 날짜 섹션 */
         .date-info {
             font-family: 'ZEN-SERIF', var(--font-serif);
             font-size: 28px;
             font-weight: 400;
             color: var(--text-main);
-            margin: 40px 0 8px 0;
+            margin-bottom: 8px;
             letter-spacing: 2px;
         }
 
@@ -129,9 +96,30 @@
             color: var(--text-sub);
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-bottom: 40px;
         }
 
+        /* 이미지 섹션 */
+        .image-section {
+            padding: 40px 24px;
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* 정보 섹션 */
         .names {
             font-family: 'ZEN-SERIF', var(--font-serif);
             font-size: 22px;
@@ -164,31 +152,27 @@
 </head>
 <body>
     <div class="mobile-container">
-        <!-- 커버 이미지 -->
-        <section class="main-cover">
-            <img src="img/img01.png" alt="청첩장">
-        </section>
-
-        <!-- 준비 중 섹션 -->
-        <section>
-            <p class="section-label">Coming Soon</p>
-            <h2>준비 중입니다</h2>
-            <p class="intro-text">
-                특별한 순간을 함께하실<br>
-                여러분을 초대하고 있습니다
-            </p>
-        </section>
-
-        <!-- 날짜 정보 -->
+        <!-- 상단: 날짜 -->
         <section>
             <div class="date-info">26 | 07 | 11</div>
             <div class="day-name">Saturday</div>
+        </section>
+
+        <!-- 중앙: 이미지 -->
+        <div class="image-section">
+            <div class="image-wrapper">
+                <img src="img/img01.png" alt="청첩장">
+            </div>
+        </div>
+
+        <!-- 하단: 정보 -->
+        <section>
             <div class="names">이성진 💕 이현주</div>
             <div class="location">
                 2026년 7월 11일 (토) 오후 12시 30분<br>
                 양재 라시따시어터 1층
             </div>
-            <div class="status-badge">Preparing</div>
+            <div class="status-badge">준비 중</div>
         </section>
     </div>
 </body>
