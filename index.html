@@ -82,20 +82,24 @@
 
         /* 날짜 섹션 */
         .date-info {
-            font-family: var(--font-sans);
-            font-size: 18px;
+            font-family: var(--font-serif);
+            font-size: 32px;
             font-weight: 400;
-            color: var(--text-sub);
+            color: var(--text-main)
             margin-bottom: 6px;
             letter-spacing: 2px;
         }
 
         .day-name {
-            font-family: var(--font-sans);
-            font-size: 12px;
-            color: var(--text-sub);
+            font-family: var(--font-serif);
+            font-size: 32px;
+            color: var(--text-main)
             letter-spacing: 1px;
             text-transform: uppercase;
+        }
+
+        .separator {
+            font-size: 18px;
         }
 
         /* 이미지 섹션 */
@@ -163,8 +167,8 @@
     <div class="mobile-container">
         <!-- 상단: 날짜 -->
         <section>
-            <img class="cover-img02" src="img/img02.svg" alt="">
-            <div class="date-info">26. 07. 11</div>
+            <img class="cover-img02" src="img/img02.svg" style="width: 20px; height:auto;" alt="">
+            <div class="date-info">26 <span class="separator">|</span> 07 <span class="separator">|</span> 11</div>
             <div class="day-name">Saturday</div>
         </section>
 
