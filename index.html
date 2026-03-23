@@ -3,122 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>모바일 청첩장 - 준비 중</title>
+    <title>Wedding Invitation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nanum+Square:wght@400;700&display=block">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Square:wght@400;700&display=block" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @font-face { font-family: 'ZEN-SERIF'; src: url('fonts/ZEN-SERIF-TTF-Regular.ttf') format('truetype'); font-weight: 400; }
+
+        /* CSS 변수 */
+        :root {
+            --bg-color: #FAFAF8;
+            --text-main: #4A3F35;
+            --text-sub: #8A8A8A;
+            --point-color: #A39E93;
+            --line-color: #E5E5E5;
+            --font-serif: 'Noto Serif KR', serif;
+            --font-sans: 'Nanum Square', -apple-system, sans-serif;
+            --max-width: 480px;
+            --padding-x: 24px;
+            --section-py: 80px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            height: 100%;
+            scrollbar-width: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
         }
 
         body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f5f3ef;
+            background-color: #eeeeee;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .mobile-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            background-color: var(--bg-color);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .header {
-            padding: 40px 30px 30px;
+        section {
+            padding: var(--section-py) var(--padding-x);
             text-align: center;
-            background: #fafaf8;
+            border-bottom: 1px solid var(--line-color);
         }
 
-        .date {
-            font-size: 32px;
-            font-weight: 600;
-            color: #2c2c2c;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
-        }
+        section:last-child { border-bottom: none; }
 
-        .day-name {
-            font-size: 12px;
-            color: #999;
-            letter-spacing: 2px;
+        .section-label {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            color: var(--point-color);
             text-transform: uppercase;
+            margin-bottom: 4px;
         }
 
-        .image-section {
+        h2 {
+            font-family: 'ZEN-SERIF', var(--font-serif);
+            font-weight: 400;
+            font-size: 24px;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .intro-text {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--text-sub);
+            font-weight: 400;
+        }
+
+        .intro-text::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--point-color);
+            margin: 44px auto 0;
+        }
+
+        /* 메인 이미지 */
+        .main-cover {
             width: 100%;
-            height: 400px;
+            padding: 0;
+            position: relative;
             overflow: hidden;
-            background: #e0dcd6;
+            border-bottom: none;
         }
 
-        .image-section img {
+        .main-cover img {
             width: 100%;
-            height: 100%;
+            height: auto;
+            display: block;
             object-fit: cover;
         }
 
-        .footer {
-            padding: 40px 30px;
-            text-align: center;
-            background: #fafaf8;
+        .date-info {
+            font-family: 'ZEN-SERIF', var(--font-serif);
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--text-main);
+            margin: 40px 0 8px 0;
+            letter-spacing: 2px;
+        }
+
+        .day-name {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
         }
 
         .names {
-            font-size: 20px;
-            color: #2c2c2c;
-            font-weight: 600;
+            font-family: 'ZEN-SERIF', var(--font-serif);
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-main);
             margin-bottom: 16px;
             letter-spacing: 1px;
         }
 
-        .info {
-            font-size: 13px;
-            color: #999;
+        .location {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            color: var(--text-sub);
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        .status {
+        .status-badge {
             display: inline-block;
-            padding: 8px 16px;
-            background: #d4a574;
+            padding: 10px 20px;
+            background-color: #d4a574;
             color: #fff;
-            border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 1px;
+            border-radius: 20px;
             text-transform: uppercase;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 상단: 날짜 -->
-        <div class="header">
-            <div class="date">26 | 07 | 11</div>
-            <div class="day-name">Saturday</div>
-        </div>
-
-        <!-- 중앙: 사진 -->
-        <div class="image-section">
+    <div class="mobile-container">
+        <!-- 커버 이미지 -->
+        <section class="main-cover">
             <img src="img/img01.png" alt="청첩장">
-        </div>
+        </section>
 
-        <!-- 하단: 정보 -->
-        <div class="footer">
+        <!-- 준비 중 섹션 -->
+        <section>
+            <p class="section-label">Coming Soon</p>
+            <h2>준비 중입니다</h2>
+            <p class="intro-text">
+                특별한 순간을 함께하실<br>
+                여러분을 초대하고 있습니다
+            </p>
+        </section>
+
+        <!-- 날짜 정보 -->
+        <section>
+            <div class="date-info">26 | 07 | 11</div>
+            <div class="day-name">Saturday</div>
             <div class="names">이성진 💕 이현주</div>
-            <div class="info">
+            <div class="location">
                 2026년 7월 11일 (토) 오후 12시 30분<br>
                 양재 라시따시어터 1층
             </div>
-            <div class="status">준비 중</div>
-        </div>
+            <div class="status-badge">Preparing</div>
+        </section>
     </div>
 </body>
 </html>
