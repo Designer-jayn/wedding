@@ -82,11 +82,11 @@
 
         /* 날짜 섹션 */
         .date-info {
-            font-family: 'ZEN-SERIF', var(--font-serif);
-            font-size: 28px;
+            font-family: var(--font-sans);
+            font-size: 18px;
             font-weight: 400;
-            color: var(--text-main);
-            margin-bottom: 8px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
             letter-spacing: 2px;
         }
 
@@ -105,10 +105,9 @@
 
         .image-wrapper {
             width: 100%;
-        
             margin: 0 12px;
-            border-radius: 8px;
             overflow: hidden;
+            max-height: 380px;
         }
 
         .image-wrapper img {
@@ -126,6 +125,11 @@
             color: var(--text-main);
             margin-bottom: 16px;
             letter-spacing: 1px;
+        }
+
+        .heart {
+            color: #000;
+            filter: brightness(0);
         }
 
         .location {
@@ -155,7 +159,7 @@
         <section>
             <img class="cover-img02" src="img/img02.svg" alt="">
             <div class="date-info">26. 07. 11</div>
-            <div class="day-name">Saturday  PM 12:30</div>
+            <div class="day-name">Saturday</div>
         </section>
 
         <!-- 중앙: 이미지 -->
@@ -167,7 +171,7 @@
 
         <!-- 하단: 정보 -->
         <section>
-            <div class="names">이성진 💕 이현주</div>
+            <div class="names">이성진 <span class="heart">💕</span> 이현주</div>
             <div class="location">
                 2026년 7월 11일 (토) 오후 12시 30분<br>
                 양재 라시따시어터 1층
