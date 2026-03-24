@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/invitation.html",
+      "destination": "/",
+      "permanent": false
+    }
+  ]
+}
