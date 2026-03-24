@@ -51,10 +51,14 @@
             background-color: var(--bg-color);
             min-height: 100vh;
             box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            justify-content: center;
         }
 
         section {
-            padding: var(--section-py) var(--padding-x);
             text-align: center;
     
         }
@@ -83,33 +87,37 @@
         /* 날짜 섹션 */
         .date-info {
             font-family: var(--font-serif);
-            font-size: 32px;
-            font-weight: 400;
-            color: var(--text-main)
-            margin-bottom: 6px;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom : 6px;
             letter-spacing: 2px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
         .day-name {
             font-family: var(--font-serif);
-            font-size: 32px;
+            font-size: 18px;
             color: var(--text-main)
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .separator {
-            font-size: 18px;
+            font-size: 16px;
         }
 
         /* 이미지 섹션 */
         .image-section {
-            padding: 40px 24px;
+            padding: 28px 12px;
         }
 
         .image-wrapper {
             width: 100%;
-            
+            position: relative;
             overflow: hidden;
             max-height: 600px;
         }
@@ -119,12 +127,14 @@
             height: auto;
             display: block;
             object-fit: cover;
+            border-radius: 999px 999px 0 0;
+            
         }
 
         /* 정보 섹션 */
         .names {
             font-family: 'ZEN-SERIF', var(--font-serif);
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 400;
             color: var(--text-main);
             margin-bottom: 16px;
@@ -146,7 +156,7 @@
             font-size: 15px;
             color: var(--text-sub);
             line-height: 1.8;
-            margin-bottom: 40px;
+
             text-align: center;
         }
 
@@ -167,7 +177,7 @@
     <div class="mobile-container">
         <!-- 상단: 날짜 -->
         <section>
-            <img class="cover-img02" src="img/img02.svg" style="width: 20px; height:auto;" alt="">
+            <img class="cover-img02" src="img/badge.svg" style="width: 28px; height:auto; margin: 12px;" alt="">
             <div class="date-info">26 <span class="separator">|</span> 07 <span class="separator">|</span> 11</div>
             <div class="day-name">Saturday</div>
         </section>
@@ -175,6 +185,11 @@
         <!-- 중앙: 이미지 -->
         <div class="image-section">
             <div class="image-wrapper">
+                <div class="textWrapper" style="width: 100%; position: absolute; top: 14%; left: 50%; transform: translateX(-50%); ">
+                    <div class="day-name" style="font-family: sans-serif; color:#c7c7c7; width: 100%; text-align: center; font-size: 16px; margin-bottom: 2%; font-weight: 500;">준비중입니다.</div>
+                    <div class="day-name" style="font-family: sans-serif; color:#b3b3b3; width: 100%;  text-align: center; font-size: 14px; font-weight: 500;">저희의 첫 걸음, 곧 전해드릴게요</div>
+            
+                </div>
                 <img src="img/img01.png" alt="청첩장">
             </div>
         </div>
@@ -183,14 +198,14 @@
         <section>
             <div class="names">
                 <span>이성진</span>
-                <span class="heart" style="font-size: 18px; color: var(--text-main);">🖤</span>
+                <span class="heart" style="font-size: 18px; color: var(--text-sub);">♥</span>
                 <span>이현주</span>
             </div>
             <div class="location">
                 2026년 7월 11일 (토) 오후 12시 30분<br>
                 양재 라시따시어터 1층
             </div>
-            <div class="status-badge">준비 중</div>
+    
         </section>
     </div>
 </body>
