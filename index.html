@@ -119,7 +119,7 @@
             width: 100%;
             position: relative;
             overflow: hidden;
-            max-height: 600px;
+            aspect-ratio: 3/4.2;
         }
 
         .image-wrapper img {
@@ -177,7 +177,7 @@
     <div class="mobile-container">
         <!-- 상단: 날짜 -->
         <section>
-            <img class="cover-img02" src="img/badge.svg" style="width: 28px; height:auto; margin: 12px;" alt="">
+
             <div class="date-info">26 <span class="separator">|</span> 07 <span class="separator">|</span> 11</div>
             <div class="day-name">Saturday</div>
         </section>
@@ -185,8 +185,12 @@
         <!-- 중앙: 이미지 -->
         <div class="image-section">
             <div class="image-wrapper">
-                <div class="textWrapper" style="width: 100%; position: absolute; top: 14%; left: 50%; transform: translateX(-50%); ">
-                    <div class="day-name" style="font-family: sans-serif; color:#c7c7c7; width: 100%; text-align: center; font-size: 16px; margin-bottom: 2%; font-weight: 500;">준비중입니다.</div>
+                <div class="textWrapper" style="width: 100%; position: absolute; top: 12%; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; ">
+                     <svg width="24" height="24" viewBox="0 0 41 40" xmlns="http://www.w3.org/2000/svg" class="jam"
+                    style="translate: none; rotate: none; scale: none; margin-bottom: 4%;  ">
+                    <path d="M5.5 20C15.9459 20 20.5 15.6051 20.5 5C20.5 15.6051 25.0223 20 35.5 20C25.0223 20 20.5 24.5223 20.5 35C20.5 24.5223 15.9459 20 5.5 20Z"
+                    fill="#c7c7c7" stroke="#c7c7c7" stroke-width="1.66667" stroke-linejoin="round" style="fill: #999592 !important; stroke: #999592 !important;"></path></svg>
+                    <div class="day-name" style="font-family: sans-serif; color:#e6e6e6; width: 100%; text-align: center; font-size: 16px; margin-bottom: 2%; font-weight: 500;">준비중입니다.</div>
                     <div class="day-name" style="font-family: sans-serif; color:#b3b3b3; width: 100%;  text-align: center; font-size: 14px; font-weight: 500;">저희의 첫 걸음, 곧 전해드릴게요</div>
             
                 </div>
