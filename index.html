@@ -367,7 +367,7 @@
     /* 모달 공통 */
     .modal-overlay { position: fixed; top: 0; left: var(--underline-left); width: 100%; height: 100%; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: 0.3s; z-index: 100; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
-    .modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); opacity: 0; visibility: hidden; width: calc(100% - 40px); max-width: 420px; background: #fff; padding: 32px 24px; border-radius: 16px; transition: 0.3s ease-out; z-index: 101; text-align: left; max-height: 90vh; overflow: visible; }
+    .modal-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -48%); opacity: 0; visibility: hidden; width: calc(100% - 40px); max-width: 420px; background: #fff; padding: 32px 24px; border-radius: 16px; transition: 0.3s ease-out; z-index: 101; text-align: left; max-height: 90vh; overflow-y: auto; }
     .modal-content.active { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
     .modal-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 24px; cursor: pointer; }
     .form-group { margin-bottom: 24px;}
